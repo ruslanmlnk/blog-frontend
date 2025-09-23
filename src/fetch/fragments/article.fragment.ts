@@ -1,0 +1,47 @@
+import { gql } from "graphql-request";
+import imageFragment from "./image.fragment";
+
+
+export const articleFragment = gql`
+  title
+  slug
+  description
+  bg {
+    ${imageFragment}
+  }
+  category {
+    title
+    slug
+    id
+  }
+  content {
+    ... on List {
+      title
+      __typename
+      list_items {
+        item_title            
+      }
+    }
+    ... on Paragraph {
+      text
+      __typename
+    }
+    ... on Heading1 {
+      __typename
+      text
+    }
+    ... on Heading2 {
+      __typename
+      text
+    }
+    ... on Heading3 {
+      __typename
+      text
+    }
+    ... on Heading4 {
+      __typename
+      text
+    }
+  }
+}
+`
