@@ -1,6 +1,11 @@
-import fetchArticles from "@/fetch/articles.fetch";
+import fetchHomepage from "@/fetch/homepage.fetch";
 
 export default async function Home() {
-  const data = await fetchArticles();
-  return <pre>{JSON.stringify(data, null, 2)}</pre>;
+  const data = await fetchHomepage();
+  return (
+    <>
+      <h1>{data?.title}</h1>
+      <p>{data?.description}</p>
+    </>
+  );
 }

@@ -6,6 +6,7 @@ export const articleFragment = gql`
   title
   slug
   description
+  createdAt
   bg {
     ${imageFragment}
   }
@@ -43,5 +44,4 @@ export const articleFragment = gql`
       text
     }
   }
-}
 `

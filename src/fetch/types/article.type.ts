@@ -24,6 +24,7 @@ export interface Article {
   title: string;
   description: string;
   slug: string;
+  createdAt: string;
   bg: AltMedia;
   category: {
     title: string;

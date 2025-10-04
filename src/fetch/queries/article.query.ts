@@ -12,6 +12,7 @@ query getArticles($page: Int!, $limit: Int!, $where: Article_where) {
       ${articleFragment}
     }
   }
+}
 `
 
 export const getArticleQuery = gql`
@@ -21,4 +22,5 @@ query getArticles($where: Article_where) {
       ${articleFragment}
     }
   }
+}
 `

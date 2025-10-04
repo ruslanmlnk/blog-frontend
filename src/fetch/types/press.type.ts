@@ -3,8 +3,8 @@ export interface Press {
   title: string;
   description: string;
 }
-export interface Preses {
-  Preses:{
+export interface Presses {
+  Presses:{
     docs: Press[]
   }
 }

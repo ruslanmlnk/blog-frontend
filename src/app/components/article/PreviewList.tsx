@@ -38,12 +38,23 @@ export default function PreviewList(){
     }, [page, categoryId]);
 
     console.log(articles);
-    return (<>
-        <div>
-            {articles.map((article, idx) =>(
-            <PreviewCard {...article} key={idx}/>
-            ))}
+    return (
+      <>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          {articles.map((article, idx) => (
+            <PreviewCard {...article} key={idx} />
+          ))}
         </div>
-    </>
+        {isShow && (
+          <div className="mt-8 flex justify-center">
+            <button
+              onClick={showMoreHandler}
+              className="px-4 py-2 border rounded hover:bg-gray-50"
+            >
+              Show more
+            </button>
+          </div>
+        )}
+      </>
     );
 }
