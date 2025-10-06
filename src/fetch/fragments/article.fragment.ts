@@ -12,7 +12,6 @@ export const articleFragment = gql`
   }
   category {
     title
-    slug
     id
   }
   content {

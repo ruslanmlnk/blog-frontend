@@ -28,7 +28,6 @@ export interface Article {
   bg: AltMedia;
   category: {
     title: string;
-    slug: string;
     id: string;
   }
   content: Array<BlockList | BlockParagraph | BlockHeading>

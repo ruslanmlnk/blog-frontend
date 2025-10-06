@@ -1,6 +1,6 @@
-import { graphQLClient } from "./gqlClient";
-import { articleCategoriesQuery } from "./queries/articleCategories.query";
-import { ArticleCategoriesQueryResponse, FetchArticleCategoriesResponse } from "./types/articleCategories.type";
+﻿import { graphQLClient } from "./gqlClient";
+import { articleCategoriesQuery, categoryByIdQuery } from "./queries/articleCategories.query";
+import type { ArticleCategoriesQueryResponse, CategoryByIdResponse, FetchArticleCategoriesResponse } from "./types/articleCategories.type";
 
 export default async function fetchArticleCategories(): Promise<FetchArticleCategoriesResponse | null> {
   try {
@@ -12,3 +12,22 @@ export default async function fetchArticleCategories(): Promise<FetchArticleCate
   }
 }
 
+export async function fetchCategories() {
+  try {
+    const data = await graphQLClient.request<ArticleCategoriesQueryResponse>(articleCategoriesQuery);
+    return data.Article_categories.docs;
+  } catch (error) {
+    console.error("GraphQL Error:", JSON.stringify(error, null, 2));
+    return [];
+  }
+}
+
+export async function fetchCategoryById(id: string) {
+  try {
+    const data = await graphQLClient.request<CategoryByIdResponse>(categoryByIdQuery, { id: Number(id) });
+    return data.Article_categories.docs[0] || null;
+  } catch (error) {
+    console.error("GraphQL Error (id):", JSON.stringify(error, null, 2));
+    return null;
+  }
+}

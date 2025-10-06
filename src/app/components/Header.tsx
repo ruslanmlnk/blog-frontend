@@ -25,8 +25,8 @@ export default function Header() {
       <TopCategoriesBar items={categories.map((c) => c.title)} />
 
       {/* Main bar */}
-      <div className="bg-white border-b border-neutral-200">
-        <div className="site-container h-16 md:h-[111px] flex items-center justify-between !max-w-[1312px]">
+      <div className="bg-white border border-[#E0E0E0]">
+        <div className="site-container h-16 md:h-[110px] flex items-center justify-between !max-w-[1312px]">
           <Link
             href="/"
             className="uppercase font-extrabold text-2xl md:text-[32px] text-[#151515] select-none"
