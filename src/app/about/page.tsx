@@ -1,37 +1,15 @@
 import AboutHero from "@/app/components/about/AboutHero";
 import AboutIntro from "@/app/components/about/AboutIntro";
+import fetchAbout from "@/fetch/about.fetch";
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const about = await fetchAbout();
+
   return (
-    <main className="max-w-[1286px] mx-auto px-6 sm:px-8 md:px-10 py-8 md:py-12 text-neutral-900">
-      <AboutHero />
-      <AboutIntro
-        lead={
-          "Мы — независимый аналитический центр, специализирующийся на исследовании политических репрессий, войны и нарушений прав человека в Восточной Европе"
-        }
-        items={[
-          {
-            title: "Наша миссия",
-            text:
-              "Представлять точные и проверенные данные, которые помогают журналистам, правозащитным организациям и международным институтам принимать обоснованные решения.",
-          },
-          {
-            title: "Наш подход",
-            text:
-              "Мы используем современные технологии анализа данных — искусственный интеллект, Python и big‑data, чтобы выявлять важные закономерности и получать целостную картину происходящего.",
-          },
-          {
-            title: "Что мы делаем",
-            text:
-              "Мы систематизируем факты, анализируем большие массивы данных и переводим их в доступную аналитику: базы данных, отчеты и исследования, которые находят отражение в СМИ и докладах НКО.",
-          },
-          {
-            title: "Наше признание",
-            text:
-              "Наши исследования уже используют ведущие международные СМИ — такие как Bloomberg, Die Zeit, Le Monde — а также международные организации, включая структуры ООН и Европарламента.",
-          },
-        ]}
-      />
+    <main className="max-w-[1318px] mx-auto px-4 py-8 md:py-[74px_20px] text-neutral-900">
+      <AboutHero image={about?.heroImage ?? null} />
+      <AboutIntro lead={about?.lead ?? ""} items={about?.cards ?? []} />
     </main>
   );
 }
+

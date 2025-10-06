@@ -26,10 +26,10 @@ export default function Header() {
 
       {/* Main bar */}
       <div className="bg-white border-b border-neutral-200">
-        <div className="max-w-[1286px] mx-auto px-6 sm:px-8 md:px-10 h-16 md:h-20 flex items-center justify-between">
+        <div className="site-container h-16 md:h-[111px] flex items-center justify-between !max-w-[1312px]">
           <Link
             href="/"
-            className="uppercase tracking-widest font-extrabold text-2xl md:text-3xl text-neutral-900 select-none"
+            className="uppercase font-extrabold text-2xl md:text-[32px] text-[#151515] select-none"
           >
             Parubets Analytics
           </Link>

@@ -3,7 +3,7 @@ export default function Press() {
     <main className="text-neutral-900">
       {/* Blue filter bar */}
       <div className="bg-[#0B4CC0]">
-        <div className="max-w-[1286px] mx-auto px-6 sm:px-8 md:px-10 py-4 flex flex-wrap items-center gap-3 text-white">
+        <div className="site-container py-4 flex flex-wrap items-center gap-3 text-white">
           <button className="inline-flex items-center gap-2 text-sm font-semibold">
             <span className="text-lg">↩</span>
             Вернуться ко всем новостям
@@ -25,9 +25,9 @@ export default function Press() {
         </div>
       </div>
 
-      <div className="max-w-[1286px] mx-auto px-6 sm:px-8 md:px-10 py-10 md:py-12">
+      <div className="site-container py-10 md:py-12">
         {/* Page title */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-8">
+        <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-8">
           МЫ В СМИ
         </h1>
 
@@ -50,7 +50,7 @@ export default function Press() {
         </article>
 
         {/* 3-column grid of cards */}
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {Array.from({ length: 6 }).map((_, i) => (
             <article
               key={i}
@@ -108,7 +108,7 @@ export default function Press() {
         </section>
 
         {/* International grid */}
-        <section className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <section className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
           {Array.from({ length: 9 }).map((_, i) => (
             <article key={i} className="bg-white rounded-xl ring-1 ring-neutral-200 shadow-[0_6px_18px_rgba(0,0,0,0.1)] overflow-hidden">
               <img
@@ -157,3 +157,8 @@ export default function Press() {
     </main>
   );
 }
+
+
+
+
+

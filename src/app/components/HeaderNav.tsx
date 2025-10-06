@@ -17,16 +17,16 @@ export default function HeaderNav({ items }: { items: Item[] }) {
   };
 
   return (
-    <nav className="flex items-center gap-8 text-sm md:text-base">
+    <nav className="flex items-center gap-[25px] text-sm md:text-base">
       {items.map((item) => (
         <Link
           key={item.href + item.label}
           href={item.href}
           className={
-            "uppercase font-semibold tracking-wide transition-colors " +
+            "uppercase font-semibold transition-colors " +
             (isActive(item.href)
-              ? "text-blue-600"
-              : "text-neutral-800 hover:text-neutral-900")
+              ? "text-[#0243A5]"
+              : "text-[#151515] hover:text-neutral-900")
           }
         >
           {item.label}

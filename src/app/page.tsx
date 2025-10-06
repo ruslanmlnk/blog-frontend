@@ -1,8 +1,8 @@
 export default function Home() {
   return (
-    <main className="max-w-[1286px] mx-auto px-6 sm:px-8 md:px-10 py-8 md:py-12 text-neutral-900">
+    <main className="site-container py-8 md:py-12 text-neutral-900">
       {/* Brand Heading */}
-      <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight">
+      <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight">
         PARUBETS ANALYTICS
       </h1>
       <p className="mt-4 text-neutral-600 max-w-3xl">
@@ -10,16 +10,16 @@ export default function Home() {
       </p>
 
       {/* Main content grid */}
-      <section className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <section className="mt-8 grid grid-cols-1 md:grid-cols-12 gap-10">
         {/* Left: Featured article */}
-        <div className="lg:col-span-8">
+        <div className="md:col-span-8">
           <article className="rounded-2xl overflow-hidden bg-white ring-1 ring-neutral-200 shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
             <img
               src="https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?q=80&w=1600&auto=format&fit=crop"
               alt="Featured"
               className="w-full h-[420px] object-cover"
             />
-            <div className="p-6 sm:p-8">
+            <div className="p-6 md:p-8">
               <div className="text-xs font-semibold tracking-wide text-neutral-500 mb-3 flex gap-6">
                 <span>17 ИЮЛЯ 2023 19:32</span>
               </div>
@@ -61,7 +61,7 @@ export default function Home() {
               alt="Feature"
               className="w-full h-[420px] object-cover"
             />
-            <div className="p-6 sm:p-8">
+            <div className="p-6 md:p-8">
               <div className="text-xs font-semibold tracking-wide text-neutral-500 mb-3">17 ИЮЛЯ 2023 19:32</div>
               <h2 className="text-2xl md:text-3xl font-extrabold leading-tight mb-3">
                 94 приговора в месяц по делам о «терроризме» выносят в России. Это в 3,5 раза больше, чем в 2021 году
@@ -102,7 +102,7 @@ export default function Home() {
         </div>
 
         {/* Right: Sidebar */}
-        <aside className="lg:col-span-4 space-y-8">
+        <aside className="md:col-span-4 space-y-8">
           {/* Categories card */}
           <div className="bg-white rounded-xl ring-1 ring-neutral-200 shadow-[0_8px_24px_rgba(0,0,0,0.08)] p-4">
             <h4 className="text-sm font-bold text-neutral-700 mb-3">Категории</h4>

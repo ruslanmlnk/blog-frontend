@@ -25,7 +25,7 @@ export default function TopCategoriesBar({
       <div className="flex items-center whitespace-nowrap" key="sequence">
         {items.map((text, idx) => (
           <div className="flex items-center" key={idx}>
-            <span className="px-5 select-none cursor-default text-[#5B5F66] text-[13px] leading-none font-bold uppercase tracking-[0.04em]">
+            <span className="px-5 select-none cursor-default text-[#767676] text-[12px] leading-none font-bold uppercase">
               {text}
             </span>
             <span className="text-[#0B4CC0] px-5">*</span>
@@ -64,8 +64,8 @@ export default function TopCategoriesBar({
   const duration = Math.max(10, Math.round(seqWidth / speed));
 
   return (
-    <div className="bg-[#EDEDED] border-b border-[#DADADA] overflow-hidden">
-      <div ref={containerRef} className="relative w-full h-14 flex items-center overflow-hidden px-6 sm:px-8 md:px-10">
+    <div className="bg-[#EBEBEB] border-b border-[#DADADA] overflow-hidden">
+      <div ref={containerRef} className="relative w-full h-[87px] flex items-center overflow-hidden px-6">
         {/* Hidden measurer for a single sequence */}
         <div
           className="absolute left-0 top-0 opacity-0 pointer-events-none h-0 overflow-hidden whitespace-nowrap"

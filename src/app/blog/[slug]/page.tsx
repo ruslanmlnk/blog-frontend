@@ -1,11 +1,11 @@
 export default function ArticlePage() {
   return (
-    <main className="max-w-[1286px] mx-auto px-6 sm:px-8 md:px-10 py-8 md:py-12 text-neutral-900">
+    <main className="max-w-[1286px] mx-auto px-6 py-8 md:py-12 text-neutral-900">
       {/* Breadcrumbs (simple) */}
       <nav className="text-sm text-neutral-500 mb-4">Публикации / Украина</nav>
 
       {/* Title */}
-      <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight">
+      <h1 className="text-3xl md:text-5xl font-extrabold leading-tight tracking-tight">
         94 приговора в месяц по делам о «терроризме» выносят в России. Это в 3,5 раза больше,
         чем в 2021 году
       </h1>
@@ -99,10 +99,10 @@ export default function ArticlePage() {
       </section>
 
       {/* Recommended on blue */}
-      <section className="mt-12 -mx-6 sm:-mx-8 md:-mx-10 bg-[#0B4CC0]">
-        <div className="max-w-[1286px] mx-auto px-6 sm:px-8 md:px-10 py-8">
+      <section className="mt-12 -mx-6 bg-[#0B4CC0]">
+        <div className="max-w-[1286px] mx-auto px-6 py-8">
           <h4 className="text-white text-xl font-extrabold mb-6">Рекомендованные статьи</h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {Array.from({ length: 4 }).map((_, i) => (
               <article key={i} className="bg-white rounded-xl ring-1 ring-neutral-200 shadow-[0_6px_18px_rgba(0,0,0,0.12)] overflow-hidden">
                 <img
@@ -128,3 +128,7 @@ export default function ArticlePage() {
     </main>
   );
 }
+
+
+
+
