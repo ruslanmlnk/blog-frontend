@@ -12,6 +12,10 @@ export interface Homepage {
   id: string;
   title: string;
   description: string;
+  trends?: {
+    title?: string;
+    items: { article: Article }[];
+  } | null;
   content?: HomeBlock[];
 }
 

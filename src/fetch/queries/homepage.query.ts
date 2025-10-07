@@ -8,6 +8,10 @@ export const homepageQuery = gql`
         id
         title
         description
+        trends {
+          title
+          items { article { ${articleFragment} } }
+        }
         content {
           ... on HomeFeatured {
             __typename

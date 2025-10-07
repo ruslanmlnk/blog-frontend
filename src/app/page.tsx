@@ -1,6 +1,7 @@
 import CategoriesPanel from "@/app/components/blog/CategoriesPanel";
 import HomeBlocks from "@/app/components/blog/HomeBlocks";
 import BlocksPagination from "@/app/components/blog/BlocksPagination";
+import HomeTrends from "@/app/components/blog/HomeTrends";
 import fetchHomepage from "@/fetch/homepage.fetch";
 
 export default async function Home({
@@ -10,13 +11,15 @@ export default async function Home({
 }) {
   const home = await fetchHomepage();
   const allBlocks = ((home?.content as any[]) || []);
+  const trends = home?.trends;
+  const contentBlocks = allBlocks.filter((b: any) => b?.__typename !== 'HomeTrends' && b?.__typename !== 'homeTrends');
   const perPage = 5;
   const rawPage = searchParams?.page ?? 1;
   const pageNum = Math.max(1, Number(Array.isArray(rawPage) ? rawPage[0] : rawPage) || 1);
-  const totalPages = Math.max(1, Math.ceil(allBlocks.length / perPage));
+  const totalPages = Math.max(1, Math.ceil(contentBlocks.length / perPage));
   const currentPage = Math.min(pageNum, totalPages);
   const start = (currentPage - 1) * perPage;
-  const pageBlocks = allBlocks.slice(start, start + perPage);
+  const pageBlocks = contentBlocks.slice(start, start + perPage);
 
   return (
     <main className="site-container py-8 md:py-12 text-neutral-900">
@@ -47,24 +50,10 @@ export default async function Home({
           {/* Categories card */}
           <CategoriesPanel />
 
-          {/* Trending card (placeholder) */}
-          <div className="bg-white rounded-xl ring-1 ring-neutral-200 shadow-[0_8px_24px_rgba(0,0,0,0.08)] p-4">
-            <h4 className="text-sm font-bold text-neutral-700 mb-3">Тренды</h4>
-            <div className="space-y-4">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="flex gap-3">
-                  <img
-                    src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=300&auto=format&fit=crop"
-                    alt=""
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
-                  <p className="text-sm text-neutral-700 leading-snug">
-                    Заглушка текста для карточки трендов. Замените на реальные данные.
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+          
+          {trends ? (
+            <HomeTrends title={(trends as any).title} items={(trends as any).items} />
+          ) : null}
         </aside>
       </section>
     </main>
