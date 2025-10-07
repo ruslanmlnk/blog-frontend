@@ -5,7 +5,6 @@ export interface InterviewOverlayHeroBlock {
   href: string;
   title: string;
   subtitle?: string;
-  dateLabel?: string;
   image: AltMedia;
 }
 
@@ -13,7 +12,6 @@ export interface InterviewCardGridBlockItem {
   href: string;
   title: string;
   description?: string;
-  dateLabel?: string;
   image: AltMedia;
 }
 export interface InterviewCardGridBlock {
@@ -24,7 +22,6 @@ export interface InterviewCardGridBlock {
 export interface InterviewOverlayPairBlockItem {
   href: string;
   title: string;
-  dateLabel?: string;
   image: AltMedia;
 }
 export interface InterviewOverlayPairBlock {
@@ -51,4 +48,3 @@ export interface InterviewByIdResponse {
     docs: InterviewDoc[];
   };
 }
-

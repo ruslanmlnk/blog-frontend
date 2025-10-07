@@ -16,8 +16,8 @@ export default async function CategoriesChips({
   selectedId,
   items,
   hrefFor,
-  backHref = "/blog",
-  backLabel = "Back to all",
+  backHref = "/",
+  backLabel = "Вернуться на главную",
 }: {
   selectedId?: string | null;
   items?: ChipItem[];

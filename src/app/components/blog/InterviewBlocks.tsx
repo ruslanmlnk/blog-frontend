@@ -3,7 +3,14 @@ import BlogCardGrid from "./BlogCardGrid";
 import BlogOverlayHero from "./BlogOverlayHero";
 import type { InterviewBlock } from "@/fetch/types/interview.type";
 
-export default function InterviewBlocks({ blocks = [] as InterviewBlock[] }) {
+export default function InterviewBlocks({
+  blocks = [] as InterviewBlock[],
+  sourceTitle,
+}: {
+  blocks?: InterviewBlock[];
+  sourceTitle?: string;
+}) {
+  const computedLabel = sourceTitle ? `СМИ: ${sourceTitle}` : undefined;
   return (
     <section className="mt-8 flex flex-col gap-y-[55px]">
       {blocks.map((block: any, idx: number) => {
@@ -13,7 +20,7 @@ export default function InterviewBlocks({ blocks = [] as InterviewBlock[] }) {
               href: it.href || '#',
               image: it.image?.url || '',
               title: it.title || '',
-              dateLabel: it.dateLabel || undefined,
+              dateLabel: computedLabel,
             }));
             return <BlogOverlayPair key={idx} items={items} />;
           }
@@ -23,7 +30,7 @@ export default function InterviewBlocks({ blocks = [] as InterviewBlock[] }) {
               image: it.image?.url || '',
               title: it.title || '',
               description: it.description || '',
-              dateLabel: it.dateLabel || undefined,
+              dateLabel: computedLabel,
             }));
             return <BlogCardGrid key={idx} items={items} isInterview />;
           }
@@ -35,7 +42,7 @@ export default function InterviewBlocks({ blocks = [] as InterviewBlock[] }) {
                   image: it.image?.url || '',
                   title: it.title || '',
                   subtitle: it.subtitle || '',
-                  dateLabel: it.dateLabel || undefined,
+                  dateLabel: computedLabel,
                 }
               : undefined;
             return <BlogOverlayHero key={idx} item={item} />;
@@ -47,4 +54,3 @@ export default function InterviewBlocks({ blocks = [] as InterviewBlock[] }) {
     </section>
   );
 }
-

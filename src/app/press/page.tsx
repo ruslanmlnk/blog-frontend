@@ -32,8 +32,8 @@ export default async function Press({
         selectedId={sourceKey ?? undefined}
         items={pressList.map((o: any) => ({ id: o.id, title: o.title}))}
         hrefFor={(id) => `/press?source=${encodeURIComponent(String(id))}`}
-        backHref="/press"
-        backLabel="Вернуться ко всем новостям"
+        backHref="/"
+        backLabel="Вернуться на главную"
       />
 
       <div className="max-w-[1318px] mx-auto px-4 py-10 md:py-25">

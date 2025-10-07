@@ -32,14 +32,16 @@ export default async function InterviewPage({
         selectedId={sourceKey ?? undefined}
         items={list.map((o: any) => ({ id: o.id, title: o.title }))}
         hrefFor={(id) => `/interview?source=${encodeURIComponent(String(id))}`}
-        backHref="/interview"
-        backLabel="All sources"
+        backHref="/"
+        backLabel="Вернуться на главную"
       />
 
       <div className="site-container py-10 md:py-12">
         <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-8">Interviews</h1>
 
-        {pageBlocks.length ? <InterviewBlocks blocks={pageBlocks as any} /> : null}
+        {pageBlocks.length ? (
+          <InterviewBlocks blocks={pageBlocks as any} sourceTitle={doc?.title} />
+        ) : null}
 
         <BlocksPagination
           page={currentPage}
@@ -55,4 +57,3 @@ export default async function InterviewPage({
     </main>
   );
 }
-

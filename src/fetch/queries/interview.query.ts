@@ -24,7 +24,6 @@ export const interviewByIdQuery = gql`
             href
             title
             subtitle
-            dateLabel
             image { ${imageFragment} }
           }
           ... on InterviewCardGrid {
@@ -33,7 +32,6 @@ export const interviewByIdQuery = gql`
               href
               title
               description
-              dateLabel
               image { ${imageFragment} }
             }
           }
@@ -42,7 +40,6 @@ export const interviewByIdQuery = gql`
             items {
               href
               title
-              dateLabel
               image { ${imageFragment} }
             }
           }
@@ -51,4 +48,3 @@ export const interviewByIdQuery = gql`
     }
   }
 `;
-

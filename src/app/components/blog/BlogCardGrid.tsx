@@ -72,7 +72,7 @@ export default function BlogCardGrid({
                   href={it.href}
                   className="w-full h-10 inline-flex items-center justify-center rounded-md bg-blue-700 text-white font-semibold hover:bg-blue-800"
                 >
-                  Watch interview
+                  Смотреть интервью
                 </Link>
               </div>
             )}
