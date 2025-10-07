@@ -1,14 +1,24 @@
 import { graphQLClient } from "./gqlClient";
-import { pressQuery } from "./queries/press.query";
-import { Presses } from "./types/press.type";
+import { pressListQuery, pressByIdQuery } from "./queries/press.query";
+import type { PressListResponse, PressByIdResponse } from "./types/press.type";
 
-export default async function fetchPress() {
+export async function fetchPressList() {
   try {
-    const data = await graphQLClient.request<Presses>(pressQuery);
-    return data.Presses.docs[0];
-    
+    const data = await graphQLClient.request<PressListResponse>(pressListQuery);
+    return data.Presses.docs;
   } catch (error) {
-    console.error("GraphQL Error:", JSON.stringify(error, null, 2));
+    console.error("GraphQL Error (press list):", JSON.stringify(error, null, 2));
+    return [] as any[];
+  }
+}
+
+export async function fetchPressById(id: string | number) {
+  try {
+    const data = await graphQLClient.request<PressByIdResponse>(pressByIdQuery, { id: Number(id) });
+    return data.Presses.docs[0] || null;
+  } catch (error) {
+    console.error("GraphQL Error (press by id):", JSON.stringify(error, null, 2));
     return null;
   }
-} 
+}
+

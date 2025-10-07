@@ -1,10 +1,22 @@
-export interface Press {
-  id: string;
+import type { AltMedia } from "./image.type";
+import type { CategoryBlock } from "./articleCategories.type";
+
+export interface PressDoc {
+  id: number | string;
   title: string;
-  description: string;
+  icon?: AltMedia | null;
+  content?: CategoryBlock[];
 }
-export interface Presses {
-  Presses:{
-    docs: Press[]
-  }
+
+export interface PressListResponse {
+  Presses: {
+    docs: PressDoc[];
+  };
 }
+
+export interface PressByIdResponse {
+  Presses: {
+    docs: PressDoc[];
+  };
+}
+

@@ -13,7 +13,15 @@ const toDateLabel = (iso?: string): string | undefined => {
   }
 };
 
-export default function CategoryBlocks({ blocks = [] as CategoryBlock[] }) {
+export default function CategoryBlocks({
+  blocks = [] as CategoryBlock[],
+  avatarUrl,
+  sourceLabel,
+}: {
+  blocks?: CategoryBlock[];
+  avatarUrl?: string;
+  sourceLabel?: string;
+}) {
   return (
     <section className="mt-8 flex flex-col gap-y-[55px]">
       {blocks.map((block, idx) => {
@@ -35,6 +43,8 @@ export default function CategoryBlocks({ blocks = [] as CategoryBlock[] }) {
               title: it.article?.title || "",
               description: it.article?.description || "",
               dateLabel: toDateLabel(it.article?.createdAt),
+              avatar: avatarUrl,
+              sourceLabel: sourceLabel,
             }));
             return <BlogCardGrid key={idx} items={items} />;
           }

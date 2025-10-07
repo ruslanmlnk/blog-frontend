@@ -31,7 +31,7 @@ export default function BlogOverlayHero({ item }: { item?: HeroItem | null }) {
             {item.title}
             </Link>
           </h3>
-          {item.subtitle && <p className="text-[22px] leading-[160%] font-bold max-w-[577px]">
+          {item.subtitle && <p className="text-[14px] md:text-[22px] leading-[160%] font-bold max-w-[577px]">
             {/* Сотни украинских защитников получили сроки за участие в боях в Курской области */}
             {item.subtitle}
             </p>}
