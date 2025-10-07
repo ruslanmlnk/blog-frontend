@@ -1,4 +1,4 @@
-﻿import CategoriesPanel from "@/app/components/blog/CategoriesPanel";
+import CategoriesPanel from "@/app/components/blog/CategoriesPanel";
 import BlogCardGrid from "@/app/components/blog/BlogCardGrid";
 
 import HomeFeatured from "@/app/components/blog/HomeFeatured";
@@ -18,7 +18,13 @@ export default function Home() {
       <section className="mt-[74px] grid grid-cols-1 md:grid-cols-[828.5px_415px] md:gap-[36px] gap-[36px]">
         {/* Left: Featured article */}
         <div className="flex flex-col gap-[55px]">
-          <HomeFeatured />
+          <HomeFeatured
+            image="https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?q=80&w=1600&auto=format&fit=crop"
+            alt="Featured"
+            dateLabel="17 июля 2025 17:32"
+            title={`94 приговора в месяц по делам о «терроризме» выносят<br/>в России. Это в 3,5 раза больше, чем в 2021 году`}
+            description="С 2022 года в России наблюдается значительный рост числа дел о «терроризме», которые рассматривают российские суды. Уже в 2023 г..."
+          />
 
           {/* Article grid (2 cols) */}
 <BlogCardGrid
@@ -67,45 +73,7 @@ description:
 ]}
 />
 
-          {/* Big feature again */}
-          <article className="rounded-2xl overflow-hidden bg-white ring-1 ring-neutral-200 shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
-            <img
-              src="https://images.unsplash.com/photo-1532153955177-f59af40d6472?q=80&w=1600&auto=format&fit=crop"
-              alt="Feature"
-              className="w-full h-[420px] object-cover"
-            />
-            <div className="p-6 md:p-8">
-              <div className="text-xs font-semibold tracking-wide text-neutral-500 mb-3">17 ИЮЛЯ 2023 19:32</div>
-              <h2 className="text-2xl md:text-3xl font-extrabold leading-tight mb-3">
-                94 приговора в месяц по делам о «терроризме» выносят в России. Это в 3,5 раза больше, чем в 2021 году
-              </h2>
-              <p className="text-neutral-700 text-base leading-relaxed">
-                С 2022 года в России наблюдается значительный рост числа дел о «терроризме», который затрагивает российское общество. Уже в 2023 г...
-              </p>
-            </div>
-          </article>
-
-          {/* Bottom grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <article key={i} className="rounded-xl overflow-hidden bg-white ring-1 ring-neutral-200 shadow-[0_6px_18px_rgba(0,0,0,0.08)]">
-                <img
-                  src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop"
-                  alt="Article"
-                  className="w-full h-40 object-cover"
-                />
-                <div className="p-5">
-                  <div className="text-[11px] font-semibold tracking-wide text-neutral-500 mb-2">27 АВГУСТА 2023 12:34</div>
-                  <h3 className="font-extrabold text-base leading-snug mb-2">
-                    Более 300 украинских военных, участвовавших в боях в Курской области, осуждены в России за «терро..."
-                  </h3>
-                  <p className="text-neutral-700 text-sm leading-relaxed">
-                    22 августа депутаты заявили о намерениях окружного суда вынести постановление по статье...
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
+          
 
           {/* Pagination */}
           <div className="flex items-center justify-between text-sm text-neutral-600">
