@@ -11,7 +11,15 @@ export type CardItem = {
   sourceLabel?: string;
 };
 
-export default function BlogCardGrid({ items = [] as CardItem[], twoCols = false }: { items?: CardItem[]; twoCols?: boolean }) {
+export default function BlogCardGrid({
+  items = [] as CardItem[],
+  twoCols = false,
+  isInterview = false,
+}: {
+  items?: CardItem[];
+  twoCols?: boolean;
+  isInterview?: boolean;
+}) {
   return (
     <section className={`grid grid-cols-1 ${twoCols ? 'md:grid-cols-2' : 'md:grid-cols-3'} gap-[35px]`}>
       {items.map((it, i) => (
@@ -56,6 +64,17 @@ export default function BlogCardGrid({ items = [] as CardItem[], twoCols = false
             </h3>
             {it.description && (
               <p className="text-[#767676] text-base leading-[22px] tracking-[-0.4px]">{it.description}</p>
+            )}
+
+            {isInterview && (
+              <div className="mt-4">
+                <Link
+                  href={it.href}
+                  className="w-full h-10 inline-flex items-center justify-center rounded-md bg-blue-700 text-white font-semibold hover:bg-blue-800"
+                >
+                  Watch interview
+                </Link>
+              </div>
             )}
           </div>
         </article>
