@@ -6,6 +6,9 @@ export type CardItem = {
   title: string;
   dateLabel?: string;
   description?: string;
+  // Optional press/source avatar + label
+  avatar?: string;
+  sourceLabel?: string;
 };
 
 export default function BlogCardGrid({ items = [] as CardItem[] }) {
@@ -20,8 +23,33 @@ export default function BlogCardGrid({ items = [] as CardItem[] }) {
             <img src={it.image} alt={it.title} className="w-full h-[234px] object-cover" />
           </Link>
           <div className="py-[35px] px-4">
-            {it.dateLabel && (
-              <div className="text-[12px] font-bold text-[#767676] mb-[25px] leading-[8px] uppercase">{it.dateLabel}</div>
+            {it.avatar ? (
+              <div className="mb-[25px]">
+                <div className="flex items-center gap-3">
+                  <img
+                    src={it.avatar}
+                    alt={it.sourceLabel || "source"}
+                    className="w-10 h-10 rounded-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="flex flex-col">
+                    {it.sourceLabel && (
+                      <span className="text-[12px] font-bold text-[#767676] uppercase">
+                        {it.sourceLabel}
+                      </span>
+                    )}
+                    {it.dateLabel && (
+                      <span className="text-[12px] text-[#767676] mt-1">
+                        {it.dateLabel}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              it.dateLabel && (
+                <div className="text-[12px] font-bold text-[#767676] mb-[25px] leading-[8px] uppercase">{it.dateLabel}</div>
+              )
             )}
             <h3 className="font-bold text-base leading-[160%] mb-[25px]">
               <Link href={it.href}>{it.title}</Link>
@@ -35,4 +63,3 @@ export default function BlogCardGrid({ items = [] as CardItem[] }) {
     </section>
   );
 }
-
