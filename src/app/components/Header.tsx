@@ -14,7 +14,7 @@ export default function Header() {
 
   const navItems = [
     { label: "О центре", href: "/about" },
-    { label: "Публикации", href: "/blog" },
+    { label: "Публикаци", href: "/blog" },
     { label: "В СМИ", href: "/press" },
     { label: "Интервью", href: "/interview" },
     { label: "Контакты", href: "/contacts" },

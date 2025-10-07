@@ -1,6 +1,8 @@
 ﻿import CategoriesPanel from "@/app/components/blog/CategoriesPanel";
 import BlogCardGrid from "@/app/components/blog/BlogCardGrid";
 
+import HomeFeatured from "@/app/components/blog/HomeFeatured";
+
 export default function Home() {
   return (
     <main className="site-container py-8 md:py-12 text-neutral-900">
@@ -16,46 +18,54 @@ export default function Home() {
       <section className="mt-[74px] grid grid-cols-1 md:grid-cols-[828.5px_415px] md:gap-[36px] gap-[36px]">
         {/* Left: Featured article */}
         <div className="flex flex-col gap-[55px]">
-          <article className="mb-5 rounded-[10px] overflow-hidden bg-white ring-1 ring-neutral-200 shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
-            <img
-              src="https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?q=80&w=1600&auto=format&fit=crop"
-              alt="Featured"
-              className="w-full h-[492.05px] object-cover"
-            />
-            <div className="py-[35px] px-[10px] md:py-[35px] text-center flex flex-col items-center">
-              <div className="text-[12px] font-bold text-[#767676] leading-[8px] text-center">
-                17 ИЮЛЯ 2023 19:32
-              </div>
-              <h2 className="text-2xl text-[#151515] md:text-[24px] font-bold leading-[160%] mt-[15px]">
-                94 приговора в месяц по делам о «терроризме» выносят<br/>в России. Это в 3,5 раза больше, чем в 2021 году
-              </h2>
-              <p className="text-center text-[#767676] text-base tracking-[-0.4px] leading-[22px] max-w-[590px] mt-[13px]">
-                С 2022 года в России наблюдается значительный рост числа дел о «терроризме», который затрагивает российское общество. Уже в 2023 г...
-              </p>
-            </div>
-          </article>
+          <HomeFeatured />
 
-          {/* Article grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <article key={i} className="rounded-xl overflow-hidden bg-white ring-1 ring-neutral-200 shadow-[0_6px_18px_rgba(0,0,0,0.08)]">
-                <img
-                  src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=1600&auto=format&fit=crop"
-                  alt="Article"
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-5">
-                  <div className="text-[11px] font-semibold tracking-wide text-neutral-500 mb-2">19 АВГУСТА 2023 10:03</div>
-                  <h3 className="font-extrabold text-lg leading-snug mb-2">
-                    Не менее 18,5 тысяч человек осудили в России за дезертирство и самовольное оставление части за время полномасш...
-                  </h3>
-                  <p className="text-neutral-700 text-sm leading-relaxed">
-                    За 33 года существования полной и сокращенной службы срочной службы в Украине впервые закончилось осеннее засед...
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
+          {/* Article grid (2 cols) */}
+<BlogCardGrid
+twoCols
+items={[
+{
+href: '#',
+image:
+'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=1600&auto=format&fit=crop',
+dateLabel: '19 АВГУСТА 2023 10:03',
+title:
+'Не менее 18,5 тысяч человек осудили в России за дезертирство и самовольное оставление части за время полномасш...',
+description:
+'За 33 года существования полной и сокращенной службы срочной службы в Украине впервые закончилось осеннее засед...',
+},
+{
+href: '#',
+image:
+'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=1600&auto=format&fit=crop',
+dateLabel: '19 АВГУСТА 2023 10:03',
+title:
+'Не менее 18,5 тысяч человек осудили в России за дезертирство и самовольное оставление части за время полномасш...',
+description:
+'За 33 года существования полной и сокращенной службы срочной службы в Украине впервые закончилось осеннее засед...',
+},
+{
+href: '#',
+image:
+'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=1600&auto=format&fit=crop',
+dateLabel: '19 АВГУСТА 2023 10:03',
+title:
+'Не менее 18,5 тысяч человек осудили в России за дезертирство и самовольное оставление части за время полномасш...',
+description:
+'За 33 года существования полной и сокращенной службы срочной службы в Украине впервые закончилось осеннее засед...',
+},
+{
+href: '#',
+image:
+'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=1600&auto=format&fit=crop',
+dateLabel: '19 АВГУСТА 2023 10:03',
+title:
+'Не менее 18,5 тысяч человек осудили в России за дезертирство и самовольное оставление части за время полномасш...',
+description:
+'За 33 года существования полной и сокращенной службы срочной службы в Украине впервые закончилось осеннее засед...',
+},
+]}
+/>
 
           {/* Big feature again */}
           <article className="rounded-2xl overflow-hidden bg-white ring-1 ring-neutral-200 shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
@@ -132,4 +142,3 @@ export default function Home() {
     </main>
   );
 }
-
