@@ -11,10 +11,10 @@ export type CardItem = {
   sourceLabel?: string;
 };
 
-export default function BlogCardGrid({ items = [] as CardItem[] }) {
+export default function BlogCardGrid({ items = [] as CardItem[], twoCols = false }: { items?: CardItem[]; twoCols?: boolean }) {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-3 gap-[35px]">
-      {items.slice(0, 3).map((it, i) => (
+    <section className={`grid grid-cols-1 ${twoCols ? 'md:grid-cols-2' : 'md:grid-cols-3'} gap-[35px]`}>
+      {items.map((it, i) => (
         <article
           key={i}
           className="bg-white rounded-xl ring-1 ring-neutral-200 shadow-[0_6px_18px_rgba(0,0,0,0.1)] overflow-hidden"
