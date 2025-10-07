@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { fetchCategories } from "@/fetch/articleCategories.fetch";
+import type { AltMedia } from "@/fetch/types/image.type";
 
 function BackToAllIcon() {
   return (
@@ -9,41 +10,54 @@ function BackToAllIcon() {
   );
 }
 
-export default async function CategoriesChips({ selectedId }: { selectedId?: string | null }) {
-  const categories = await fetchCategories();
+type ChipItem = { id: string | number; title: string; icon?: AltMedia | null };
+
+export default async function CategoriesChips({
+  selectedId,
+  items,
+  hrefFor,
+  backHref = "/blog",
+  backLabel = "Back to all",
+}: {
+  selectedId?: string | null;
+  items?: ChipItem[];
+  hrefFor?: (id: string | number) => string;
+  backHref?: string;
+  backLabel?: string;
+}) {
+  const categories: any[] = items ?? (await fetchCategories());
 
   return (
     <div className="bg-[#0B4CC0] border border-[#E0E0E0]">
       <div className="max-w-[1312px] mx-auto px-4 h-[152px] flex items-center justify-between text-white">
-        {/* Back to all news */}
-        <Link href="/blog" className="inline-flex items-center gap-3 text-white/90 hover:text-white transition-colors">
-            <BackToAllIcon />
-          <span className="text-[16px] leading-[22px] tracking-[-0.4px]">Вернуться ко всем новостям</span>
+        {/* Back to all */}
+        <Link href={backHref} className="inline-flex items-center gap-3 text-white/90 hover:text-white transition-colors">
+          <BackToAllIcon />
+          <span className="text-[16px] leading-[22px] tracking-[-0.4px]">{backLabel}</span>
         </Link>
 
-        {/* Categories group */}
+        {/* Chips group */}
         <div className="flex items-center gap-4 flex-wrap justify-center">
-          {categories.map((c) => {
-            const active = selectedId === String(c.id);
+          {categories.map((c: any) => {
+            const id = (c.id ?? c._id) as string | number;
+            const title = (c.title ?? c.name) as string;
+            const icon = c.icon as AltMedia | null | undefined;
+            const active = selectedId === String(id);
             const base = "inline-flex items-center px-6 py-[20px] rounded-[10px] text-[14px] leading-[160%] font-bold";
             const style = active
               ? "bg-white text-neutral-900 shadow-sm"
               : "text-white border border-white/60 hover:bg-white/10";
             return (
-              <Link key={c.id} href={`/blog?category=${encodeURIComponent(String(c.id))}`} className={`${base} ${style}`}>
-                {c.icon?.url ? (
+              <Link key={id} href={hrefFor ? hrefFor(id) : `/blog?category=${encodeURIComponent(String(id))}`} className={`${base} ${style}`}>
+                {icon?.url ? (
                   <img
-                    src={c.icon.url}
-                    alt={c.icon.alt || c.title}
+                    src={icon.url}
+                    alt={icon.alt || title}
                     className="mr-[10px] w-6"
                     loading="lazy"
                   />
-                ) : (
-                  active && (
-                    <span className="mr-2 inline-block w-5 h-3 rounded-sm bg-[linear-gradient(#FFD54F,#FFD54F)_0_0/100%_50%_no-repeat,linear-gradient(#0B4CC0,#0B4CC0)_0_100%/100%_50%_no-repeat]" />
-                  )
-                )}
-                {c.title}
+                ) : ''}
+                {title}
               </Link>
             );
           })}
@@ -52,3 +66,4 @@ export default async function CategoriesChips({ selectedId }: { selectedId?: str
     </div>
   );
 }
+
