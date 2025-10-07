@@ -47,6 +47,8 @@ export default function Press() {
               {
                 href: '#',
                 image: 'https://images.unsplash.com/photo-1549576490-b0b4831ef60a?q=80&w=1600&auto=format&fit=crop',
+                avatar: 'https://i.ibb.co/WwyW9mN/8ab00d26a5803d2c15850d749c18ad08011a7ce7.png',
+                sourceLabel: 'СМИ: THE INSIDER',
                 dateLabel: '10 АВГ 2025',
                 title: 'Исследователи зафиксировали значительный рост числа дел о «терроризме»',
                 description: 'С 2022 года в России наблюдается значительный рост числа дел о «терроризме»...'
@@ -54,6 +56,8 @@ export default function Press() {
               {
                 href: '#',
                 image: 'https://images.unsplash.com/graphic-design/photo-1542744173-8e7e53415bb0?q=80&w=1600&auto=format&fit=crop',
+                avatar: 'https://i.ibb.co/WwyW9mN/8ab00d26a5803d2c15850d749c18ad08011a7ce7.png',
+                sourceLabel: 'СМИ: THE INSIDER',
                 dateLabel: '10 АВГ 2025',
                 title: 'Данные указывают на новый всплеск репрессий в регионах',
                 description: 'С 2022 года в России наблюдается значительный рост числа дел о «терроризме»...'
@@ -61,6 +65,8 @@ export default function Press() {
               {
                 href: '#',
                 image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1600&auto=format&fit=crop',
+                avatar: 'https://i.ibb.co/WwyW9mN/8ab00d26a5803d2c15850d749c18ad08011a7ce7.png',
+                sourceLabel: 'СМИ: THE INSIDER',
                 dateLabel: '10 АВГ 2025',
                 title: 'Аналитики отмечают рост дел по «экстремизму»',
                 description: 'С 2022 года в России наблюдается значительный рост числа дел о «терроризме»...'
@@ -96,18 +102,24 @@ export default function Press() {
               {
                 href: '#',
                 image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop',
+                avatar: 'https://i.ibb.co/WwyW9mN/8ab00d26a5803d2c15850d749c18ad08011a7ce7.png',
+                sourceLabel: 'СМИ: THE INSIDER',
                 dateLabel: '07 АВГ 2025',
                 title: 'Stalin Makes a Comeback in Putin’s Wartime Crackdown on Dissent',
               },
               {
                 href: '#',
                 image: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=1600&auto=format&fit=crop',
+                avatar: 'https://i.ibb.co/WwyW9mN/8ab00d26a5803d2c15850d749c18ad08011a7ce7.png',
+                sourceLabel: 'СМИ: THE INSIDER',
                 dateLabel: '07 АВГ 2025',
                 title: 'European outlets cover new human rights report',
               },
               {
                 href: '#',
                 image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1600&auto=format&fit=crop',
+                avatar: 'https://i.ibb.co/WwyW9mN/8ab00d26a5803d2c15850d749c18ad08011a7ce7.png',
+                sourceLabel: 'СМИ: THE INSIDER',
                 dateLabel: '07 АВГ 2025',
                 title: 'Global media highlights legal crackdown statistics',
               },
