@@ -19,6 +19,15 @@ function ContactForm() {
     console.log(formData);
     try {
       await createContactMessage(formData);
+      try {
+        await fetch("/api/contact-email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+      } catch (err) {
+        console.error("Failed to send email", err);
+      }
       form.reset();
       // alert("✅ Сообщение отправлено!");
     } catch {
@@ -99,4 +108,3 @@ export default function ContactFormWithImage({ image }: { image?: AltMedia | nul
     </section>
   );
 }
-

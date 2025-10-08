@@ -28,6 +28,29 @@ export default function Footer({categories}:{categories?: ChipItem[];}) {
         // alert("❌ Ошибка при отправке!");
       }
     };
+
+    const handleSubmitWeeklyWithEmail = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const form = e.currentTarget;
+      const formData = {
+        email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      };
+      try {
+        await createWeeklyNewsletter(formData);
+        try {
+          await fetch("/api/newsletter-email", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          });
+        } catch (err) {
+          console.error("Failed to send newsletter email", err);
+        }
+        form.reset();
+      } catch (err) {
+        console.error("Failed to save newsletter subscription", err);
+      }
+    };
     
   const navItems = [
     { label: "О центре", href: "/about" },
@@ -51,7 +74,7 @@ export default function Footer({categories}:{categories?: ChipItem[];}) {
               Подпишитесь на еженедельную рассылку, чтобы получать актуальные новости
             </p>
             <div className="mt-4">
-              <form className="w-full flex items-center gap-3 bg-neutral-100 border border-neutral-200 rounded-lg px-2 md:px-4 py-3 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.02)]" onSubmit={handleSubmitWeekly}>
+              <form className="w-full flex items-center gap-3 bg-neutral-100 border border-neutral-200 rounded-lg px-2 md:px-4 py-3 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.02)]" onSubmit={handleSubmitWeeklyWithEmail}>
                 <input
                   type="email"
                   name="email"
@@ -112,4 +135,3 @@ export default function Footer({categories}:{categories?: ChipItem[];}) {
     </footer>
   );
 }
-
