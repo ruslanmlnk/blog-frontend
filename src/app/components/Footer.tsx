@@ -1,4 +1,42 @@
-export default function Footer() {
+'use client'
+import { AltMedia } from "@/fetch/types/image.type";
+import { createWeeklyNewsletter } from "@/fetch/weekly.fetch";
+import Link from "next/link";
+
+
+type ChipItem = { id: string | number; title: string; icon?: AltMedia | null };
+
+export default function Footer({categories}:{categories?: ChipItem[];}) {
+
+
+    console.log(categories);
+  
+    const handleSubmitWeekly = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+  
+      const form = e.currentTarget;
+      const formData = {
+        email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      };
+  
+      console.log(formData);
+      try {
+        await createWeeklyNewsletter(formData);
+        form.reset();
+        // alert("✅ Сообщение отправлено!");
+      } catch {
+        // alert("❌ Ошибка при отправке!");
+      }
+    };
+    
+  const navItems = [
+    { label: "О центре", href: "/about" },
+    { label: "Публикаци", href: "/blog" },
+    { label: "В СМИ", href: "/press" },
+    { label: "Интервью", href: "/interview" },
+    { label: "Контакты", href: "/contacts" },
+  ];
+
   return (
     <footer className="mt-22">
       {/* Upper footer */}
@@ -13,18 +51,19 @@ export default function Footer() {
               Подпишитесь на еженедельную рассылку, чтобы получать актуальные новости
             </p>
             <div className="mt-4">
-              <div className="w-full flex items-center gap-3 bg-neutral-100 border border-neutral-200 rounded-lg px-2 md:px-4 py-3 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.02)]">
+              <form className="w-full flex items-center gap-3 bg-neutral-100 border border-neutral-200 rounded-lg px-2 md:px-4 py-3 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.02)]" onSubmit={handleSubmitWeekly}>
                 <input
                   type="email"
+                  name="email"
                   placeholder="Введите свой адрес электронной почты"
                   className="flex-1 bg-transparent outline-none text-[15px] placeholder-neutral-500 px-1"
                 />
                 <button
-                  className="shrink-0 h-10 px-4 rounded-md bg-blue-700 text-white font-semibold uppercase text-[10px] md:text-[13px] tracking-wide hover:bg-blue-800 transition-colors"
+                  className="shrink-0 h-10 px-4 rounded-md bg-blue-700 text-white font-semibold uppercase text-[10px] md:text-[13px] tracking-wide hover:bg-blue-800 transition-colors" type="submit"
                 >
                   подписаться
                 </button>
-              </div>
+              </form>
             </div>
           </div>
 
@@ -36,11 +75,16 @@ export default function Footer() {
                 ДЕТАЛЬНЕЕ
               </h3>
               <ul className="mt-3 space-y-[10px] leading-[27px] text-[#000] whitespace-nowrap">
-                <li className="hover:text-neutral-950 cursor-pointer">О центре</li>
-                <li className="hover:text-neutral-950 cursor-pointer">Публикации</li>
-                <li className="hover:text-neutral-950 cursor-pointer">В СМИ</li>
-                <li className="hover:text-neutral-950 cursor-pointer">Интервью</li>
-                <li className="hover:text-neutral-950 cursor-pointer">Контакты</li>
+                {navItems.map((item) => (
+                  <li className="hover:text-neutral-950 cursor-pointer">
+                    <Link
+                      key={item.href + item.label}
+                      href={item.href}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
             {/* Categories column (252px, with left divider) */}
@@ -49,10 +93,9 @@ export default function Footer() {
                 КАТЕГОРИИ
               </h3>
               <ul className="mt-3 space-y-[10px] leading-[27px] text-[#000] whitespace-nowrap">
-                <li className="hover:text-neutral-950 cursor-pointer">Украина</li>
-                <li className="hover:text-neutral-950 cursor-pointer">Репрессии в России</li>
-                <li className="hover:text-neutral-950 cursor-pointer">Политика и выборы</li>
-                <li className="hover:text-neutral-950 cursor-pointer">Европа</li>
+                {categories?.map((c: any) => {
+                  return <li className="hover:text-neutral-950 cursor-pointer"><Link key={c.id} href={`/blog?category=${encodeURIComponent(String(c.id))}`}>{c.title}</Link></li>;
+                })}
               </ul>
             </div>
           </div>

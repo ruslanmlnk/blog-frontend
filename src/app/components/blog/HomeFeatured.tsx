@@ -1,3 +1,5 @@
+//import Image from "next/image";
+
 type HomeFeaturedProps = {
   image: string;
   alt?: string;
@@ -15,11 +17,11 @@ export default function HomeFeatured({
 }: HomeFeaturedProps) {
   return (
     <article className="mb-5 rounded-[10px] overflow-hidden bg-white ring-1 ring-neutral-200 shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
-      <img src={image} alt={alt} className="w-full h-[492.05px] object-cover" />
+      <img src={image} alt={alt} className="w-full h-auto md:h-[492.05px] object-cover" />
       <div className="py-[35px] px-[10px] md:py-[35px] text-center flex flex-col items-center">
         <div className="text-[12px] font-bold text-[#767676] leading-[8px] text-center">{dateLabel}</div>
         <h2
-          className="text-2xl text-[#151515] md:text-[24px] font-bold leading-[160%] mt-[15px]"
+          className="text-[18px] text-[#151515] md:text-[24px] font-bold leading-[160%] mt-[15px]"
           // Title can include simple HTML like <br/>
           dangerouslySetInnerHTML={{ __html: title }}
         />

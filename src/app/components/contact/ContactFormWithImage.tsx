@@ -1,30 +1,67 @@
+'use client'
+import { createContactMessage } from "@/fetch/contactMessage.fetch";
 import type { AltMedia } from "@/fetch/types/image.type";
+//import Image from "next/image";
 
 function ContactForm() {
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const formData = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    };
+
+    console.log(formData);
+    try {
+      await createContactMessage(formData);
+      form.reset();
+      // alert("✅ Сообщение отправлено!");
+    } catch {
+      // alert("❌ Ошибка при отправке!");
+    }
+  };
+  
   return (
-    <form className="order-2 md:order-1 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-10 content-start">
+    <form className="order-2 md:order-1 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-10 content-start" onSubmit={handleSubmit}>
       <input
         type="text"
+        name="name"
         placeholder="Имя"
+        required
+        minLength={2}
         className="h-[70px] col-span-1 w-full rounded-lg bg-neutral-100 border border-neutral-200 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"
       />
       <input
         type="tel"
+        name="phone"
+        minLength={9}
+        required
         placeholder="Номер телефона"
         className="h-[70px] col-span-1 w-full rounded-lg bg-neutral-100 border border-neutral-200 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"
       />
       <input
         type="email"
+        name="email"
+        minLength={2}
         placeholder="Почта"
+        required
         className="h-[70px] md:col-span-2 w-full rounded-lg bg-neutral-100 border border-neutral-200 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"
       />
       <textarea
         placeholder="Сообщение"
+        name="message"
         rows={5}
+        minLength={30}
+        required
         className="h-[144px] md:col-span-2 w-full resize-y rounded-lg bg-neutral-100 border border-neutral-200 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"
       />
       <button
-        type="button"
+        type="submit"
         className="uppercase h-[70px] md:col-span-2 inline-flex items-center justify-center h-12 rounded-lg bg-blue-700 text-white font-semibold tracking-wide hover:bg-blue-800 transition-colors"
       >
        отправить

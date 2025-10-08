@@ -2,6 +2,7 @@
 import CategoryBlocks from "@/app/components/blog/CategoryBlocks";
 import BlocksPagination from "@/app/components/blog/BlocksPagination";
 import { fetchCategories, fetchCategoryById } from "@/fetch/articleCategories.fetch";
+import { CategoryBlock } from "@/fetch/types/articleCategories.type";
 
 export const dynamic = "force-dynamic";
 
@@ -10,7 +11,9 @@ export default async function Blog({
 }: {
   searchParams: { category?: string | string[]; page?: string | string[] };
 }) {
-  const rawCat = searchParams?.category ?? null;
+
+  const searhprms  =  await searchParams;
+  const rawCat = searhprms?.category ?? null;
   let categoryKey: string | null = Array.isArray(rawCat) ? rawCat[0] : rawCat ?? null;
   if (!categoryKey) {
     const list = await fetchCategories();
@@ -19,9 +22,9 @@ export default async function Blog({
 
   const category = categoryKey ? await fetchCategoryById(categoryKey) : null;
 
-  const allBlocks = ((category?.content as any[]) || []);
+  const allBlocks = ((category?.content as CategoryBlock[]) || []);
   const perPage = 5;
-  const rawPage = searchParams?.page ?? 1;
+  const rawPage = searhprms?.page ?? 1;
   const pageNum = Math.max(1, Number(Array.isArray(rawPage) ? rawPage[0] : rawPage) || 1);
   const totalPages = Math.max(1, Math.ceil(allBlocks.length / perPage));
   const currentPage = Math.min(pageNum, totalPages);
@@ -36,7 +39,7 @@ export default async function Blog({
           {category?.title || "\u0411\u043B\u043E\u0433"}
         </h1>
 
-        {pageBlocks.length ? <CategoryBlocks blocks={pageBlocks as any} /> : null}
+        {pageBlocks.length ? <CategoryBlocks blocks={pageBlocks as CategoryBlock[]} /> : null}
 
         <BlocksPagination
           page={currentPage}

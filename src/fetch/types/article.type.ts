@@ -6,6 +6,22 @@ export interface BlockHeading {
   text: string;
 }
 
+export interface BlockImage {
+  __typename: "Image";
+  image: {
+    url: string;
+    alt?: string;
+    width?: number;
+    height?: number;
+  };
+  caption?: string;
+}
+
+export interface BlockQuote {
+  __typename: "Quote";
+  text: string;
+}
+
 export interface BlockList {
   __typename: "List";
   title?: string;
@@ -30,6 +46,7 @@ export interface Article {
     title: string;
     id: string;
   }
+  richContent?: any;
   content: Array<BlockList | BlockParagraph | BlockHeading>
 }
 

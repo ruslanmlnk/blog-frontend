@@ -1,4 +1,5 @@
 import Link from "next/link";
+//import Image from "next/image";
 
 export type CardItem = {
   href: string;
@@ -60,10 +61,12 @@ export default function BlogCardGrid({
               )
             )}
             <h3 className="font-bold text-base leading-[160%] mb-[25px]">
-              <Link href={it.href}>{it.title}</Link>
+              <Link href={it.href}>{it.title.length > 112 ? `${it.title.slice(0, 112)}...` : it.title}</Link>
             </h3>
             {it.description && (
-              <p className="text-[#767676] text-base leading-[22px] tracking-[-0.4px]">{it.description}</p>
+              <p className="text-[#767676] text-base leading-[22px] tracking-[-0.4px]">{it.description.length > 75
+      ? `${it.description.slice(0, 75)}...`
+      : it.description}</p>
             )}
 
             {isInterview && (

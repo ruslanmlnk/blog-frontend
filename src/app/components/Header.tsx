@@ -29,7 +29,7 @@ export default function Header() {
         <div className="site-container h-16 md:h-[110px] flex items-center justify-between !max-w-[1312px]">
           <Link
             href="/"
-            className="uppercase font-extrabold text-2xl md:text-[32px] text-[#151515] select-none"
+            className="uppercase font-extrabold text-2xl max-w-[200px] md:max-w-[100%] md:text-[32px] text-[#151515] select-none"
           >
             Parubets Analytics
           </Link>

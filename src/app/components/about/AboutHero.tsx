@@ -1,5 +1,5 @@
 import type { AltMedia } from "@/fetch/types/image.type";
-
+//import Image from "next/image";
 export default function AboutHero({ image }: { image?: AltMedia | null }) {
   const src =
     image?.url ||

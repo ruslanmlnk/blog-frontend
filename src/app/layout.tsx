@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import { fetchCategories } from "@/fetch/articleCategories.fetch";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,18 +17,20 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
+    const categories: any[] = await fetchCategories();
   return (
     <html lang="en" className={montserrat.variable}>
       <body className={montserrat.className}>
         <Header />
         {children}
         {/* <div className="min-h-svh">{children}</div> */}
-        <Footer />
+        <Footer categories={categories}/>
       </body>
     </html>
   );

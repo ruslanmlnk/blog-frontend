@@ -1,4 +1,5 @@
 import Link from "next/link";
+//import Image from "next/image";
 import { fetchCategories } from "@/fetch/articleCategories.fetch";
 
 export default async function CategoriesPanel() {

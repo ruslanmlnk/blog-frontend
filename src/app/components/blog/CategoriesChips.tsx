@@ -1,4 +1,5 @@
 import Link from "next/link";
+//import Image from "next/image";
 import { fetchCategories } from "@/fetch/articleCategories.fetch";
 import type { AltMedia } from "@/fetch/types/image.type";
 
@@ -29,7 +30,7 @@ export default async function CategoriesChips({
 
   return (
     <div className="bg-[#0B4CC0] border border-[#E0E0E0]">
-      <div className="max-w-[1312px] mx-auto px-4 h-[152px] flex items-center justify-between text-white">
+      <div className="max-w-[1312px] mx-auto px-4  not-md:flex-col not-md:py-5 not-md:gap-4 md:h-[152px] flex items-center justify-between text-white">
         {/* Back to all */}
         <Link href={backHref} className="inline-flex items-center gap-3 text-white/90 hover:text-white transition-colors">
           <BackToAllIcon />
@@ -37,13 +38,13 @@ export default async function CategoriesChips({
         </Link>
 
         {/* Chips group */}
-        <div className="flex items-center gap-4 flex-wrap justify-center">
+        <div className="flex items-center gap-4 not-md:flex-col justify-center">
           {categories.map((c: any) => {
             const id = (c.id ?? c._id) as string | number;
             const title = (c.title ?? c.name) as string;
             const icon = c.icon as AltMedia | null | undefined;
             const active = selectedId === String(id);
-            const base = "inline-flex items-center px-6 py-[20px] rounded-[10px] text-[14px] leading-[160%] font-bold";
+            const base = "inline-flex items-center px-5 py-3 md:px-6 md:py-[20px] rounded-[10px] text-[12px] md:text-[14px] leading-[160%] font-bold";
             const style = active
               ? "bg-white text-neutral-900 shadow-sm"
               : "text-white border border-white/60 hover:bg-white/10";

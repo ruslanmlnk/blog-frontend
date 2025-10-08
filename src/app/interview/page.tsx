@@ -37,7 +37,7 @@ export default async function InterviewPage({
       />
 
       <div className="site-container py-10 md:py-12">
-        <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-8">Interviews</h1>
+        <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-[74px] uppercase">{doc?.title}</h1>
 
         {pageBlocks.length ? (
           <InterviewBlocks blocks={pageBlocks as any} sourceTitle={doc?.title} />
