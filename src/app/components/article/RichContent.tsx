@@ -16,6 +16,15 @@ function extractText(node: any): string {
     if (node.format & 1) text = `<strong>${text}</strong>`;
     if (node.format & 2) text = `<em>${text}</em>`;
     if (node.format & 8) text = `<u>${text}</u>`;
+    // Apply inline styles (e.g., font-size from Lexical style map)
+    const style: string | undefined = node.style;
+    if (style) {
+      const match = /font-size\s*:\s*([^;]+)\s*;?/i.exec(style);
+      if (match && match[1]) {
+        const fontSize = match[1].trim();
+        return `<span style="font-size: ${fontSize};">${text}</span>`;
+      }
+    }
     return text;
   }
   
