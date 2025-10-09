@@ -24,9 +24,10 @@ export async function POST(req: NextRequest) {
     const phone = (body.phone || "").trim();
     const message = (body.message || "").trim();
 
-    if (!name || !message) {
+    // Require at least a name; message may be optional for short forms
+    if (!name) {
       return NextResponse.json(
-        { ok: false, error: "Name and message are required" },
+        { ok: false, error: "Name is required" },
         { status: 400 }
       );
     }
@@ -50,10 +51,9 @@ export async function POST(req: NextRequest) {
       `Name: ${name}`,
       email ? `Email: ${email}` : undefined,
       phone ? `Phone: ${phone}` : undefined,
-      "",
-      "Message:",
-      message,
-    ].filter(Boolean);
+      message ? "\nMessage:" : undefined,
+      message || undefined,
+    ].filter(Boolean) as string[];
 
     await transporter.sendMail({
       from: { name: "Contact Form", address: user },
@@ -72,4 +72,3 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-
