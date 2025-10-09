@@ -1,5 +1,5 @@
 import CategoriesChips from "@/app/components/blog/CategoriesChips";
-import CategoryBlocks from "@/app/components/blog/CategoryBlocks";
+import PressBlocks from "@/app/components/blog/PressBlocks";
 import BlocksPagination from "@/app/components/blog/BlocksPagination";
 import { fetchPressList, fetchPressById } from "@/fetch/press.fetch";
 
@@ -40,10 +40,10 @@ export default async function Press({
         <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-8 uppercase">Мы в сми</h1>
 
         {pageBlocks.length ? (
-          <CategoryBlocks
+          <PressBlocks
             blocks={pageBlocks as any}
             avatarUrl={pressDoc?.icon?.url}
-            sourceLabel={pressDoc?.title ? `\u0414\u0436\u0435\u0440\u0435\u043B\u043E: ${pressDoc.title}` : undefined}
+            sourceTitle={pressDoc?.title}
           />
         ) : null}
 

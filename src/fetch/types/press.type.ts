@@ -1,11 +1,44 @@
 import type { AltMedia } from "./image.type";
-import type { CategoryBlock } from "./articleCategories.type";
+
+export interface PressOverlayHeroBlock {
+  __typename: 'PressOverlayHero';
+  date?: string;
+  href: string;
+  title: string;
+  subtitle?: string;
+  image: AltMedia;
+}
+
+export interface PressCardGridBlockItem {
+  date?: string;
+  href: string;
+  title: string;
+  description?: string;
+  image: AltMedia;
+}
+export interface PressCardGridBlock {
+  __typename: 'PressCardGrid';
+  items: PressCardGridBlockItem[];
+}
+
+export interface PressOverlayPairBlockItem {
+  date?: string;
+  href: string;
+  title: string;
+  image: AltMedia;
+}
+export interface PressOverlayPairBlock {
+  __typename: 'PressOverlayPair';
+  items: PressOverlayPairBlockItem[];
+}
+
+export type PressBlock = PressOverlayHeroBlock | PressCardGridBlock | PressOverlayPairBlock;
 
 export interface PressDoc {
   id: number | string;
   title: string;
   icon?: AltMedia | null;
-  content?: CategoryBlock[];
+  content?: PressBlock[];
 }
 
 export interface PressListResponse {
@@ -19,4 +52,3 @@ export interface PressByIdResponse {
     docs: PressDoc[];
   };
 }
-

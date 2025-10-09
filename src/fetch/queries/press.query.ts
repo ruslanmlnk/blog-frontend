@@ -21,41 +21,31 @@ export const pressByIdQuery = gql`
         title
         icon { ${imageFragment} }
         content {
-          ... on CategoryOverlayPair {
+          ... on PressOverlayHero {
+            __typename
+            date
+            href
+            title
+            subtitle
+            image { ${imageFragment} }
+          }
+          ... on PressCardGrid {
             __typename
             items {
-              article {
-                title
-                slug
-                description
-                createdAt
-                bg { ${imageFragment} }
-                category { title id }
-              }
-            }
-          }
-          ... on CategoryCardGrid {
-            __typename
-            items {
-              article {
-                title
-                slug
-                description
-                createdAt
-                bg { ${imageFragment} }
-                category { title id }
-              }
-            }
-          }
-          ... on CategoryOverlayHero {
-            __typename
-            article {
+              date
+              href
               title
-              slug
               description
-              createdAt
-              bg { ${imageFragment} }
-              category { title id }
+              image { ${imageFragment} }
+            }
+          }
+          ... on PressOverlayPair {
+            __typename
+            items {
+              date
+              href
+              title
+              image { ${imageFragment} }
             }
           }
         }
@@ -63,4 +53,3 @@ export const pressByIdQuery = gql`
     }
   }
 `;
-
