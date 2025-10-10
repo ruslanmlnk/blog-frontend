@@ -2,8 +2,8 @@ import { gql } from "graphql-request";
 import imageFragment from "../fragments/image.fragment";
 
 export const interviewListQuery = gql`
-  query getInterviewList {
-    Interviews {
+  query getInterviewList($locale: LocaleInputType) {
+    Interviews(locale: $locale) {
       docs {
         id
         title
@@ -13,8 +13,8 @@ export const interviewListQuery = gql`
 `;
 
 export const interviewByIdQuery = gql`
-  query getInterviewById($id: Int!) {
-    Interviews(where: { id: { equals: $id } }) {
+  query getInterviewById($id: Int!, $locale: LocaleInputType) {
+    Interviews(locale: $locale, where: { id: { equals: $id } }) {
       docs {
         id
         title

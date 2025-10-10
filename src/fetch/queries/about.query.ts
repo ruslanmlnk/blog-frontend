@@ -2,8 +2,8 @@ import { gql } from "graphql-request";
 import imageFragment from "../fragments/image.fragment";
 
 export const aboutQuery = gql`
-  query getAbout {
-    Abouts {
+  query getAbout($locale: LocaleInputType) {
+    Abouts(locale: $locale) {
       docs {
         id
         title

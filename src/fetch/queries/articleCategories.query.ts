@@ -2,8 +2,8 @@ import { gql } from "graphql-request";
 import imageFragment from "../fragments/image.fragment";
 
 export const articleCategoriesQuery = gql`
-query getArticleCategories {
-  Article_categories {
+query getArticleCategories($locale: LocaleInputType) {
+  Article_categories(locale: $locale) {
     docs {
       id
       title
@@ -14,8 +14,8 @@ query getArticleCategories {
 `;
 
 export const categoryByIdQuery = gql`
-  query getCategoryById($id: Int!) {
-    Article_categories(where: { id: { equals: $id } }) {
+  query getCategoryById($id: Int!, $locale: LocaleInputType) {
+    Article_categories(locale: $locale, where: { id: { equals: $id } }) {
       docs {
         id
         title

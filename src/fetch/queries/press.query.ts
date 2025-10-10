@@ -2,8 +2,8 @@ import { gql } from "graphql-request";
 import imageFragment from "../fragments/image.fragment";
 
 export const pressListQuery = gql`
-  query getPressList {
-    Presses {
+  query getPressList($locale: LocaleInputType) {
+    Presses(locale: $locale) {
       docs {
         id
         title
@@ -14,8 +14,8 @@ export const pressListQuery = gql`
 `;
 
 export const pressByIdQuery = gql`
-  query getPressById($id: Int!) {
-    Presses(where: { id: { equals: $id } }) {
+  query getPressById($id: Int!, $locale: LocaleInputType) {
+    Presses(locale: $locale, where: { id: { equals: $id } }) {
       docs {
         id
         title

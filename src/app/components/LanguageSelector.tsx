@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useI18n, type Locale } from "@/i18n/I18nProvider";
 
 type Props = {
@@ -14,6 +15,7 @@ export default function LanguageSelector({ className = "" }: Props) {
   const { locale, setLocale } = useI18n();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
@@ -59,7 +61,14 @@ export default function LanguageSelector({ className = "" }: Props) {
                 }`}
                 onClick={() => {
                   setLocale(l as Locale);
+                  // Ensure cookie is updated before refreshing (server reads it)
+                  try {
+                    document.cookie = `lang=${l}; path=/; max-age=31536000`;
+                    localStorage.setItem("lang", l);
+                  } catch {}
                   setOpen(false);
+                  // Refresh server components to re-fetch localized content
+                  try { router.refresh(); } catch {}
                 }}
               >
                 {l.toUpperCase()}

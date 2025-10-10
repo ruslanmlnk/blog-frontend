@@ -2,8 +2,8 @@ import { gql } from "graphql-request";
 import { articleFragment } from "../fragments/article.fragment";
 
 export const homepageQuery = gql`
-  query getHomepage {
-    Homes {
+  query getHomepage($locale: LocaleInputType) {
+    Homes(locale: $locale) {
       docs {
         id
         title
