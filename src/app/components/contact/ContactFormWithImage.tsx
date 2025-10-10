@@ -1,9 +1,11 @@
-'use client'
+"use client"
 import { createContactMessage } from "@/fetch/contactMessage.fetch";
 import type { AltMedia } from "@/fetch/types/image.type";
 //import Image from "next/image";
+import { useI18n } from "@/i18n/I18nProvider";
 
 function ContactForm() {
+  const { t } = useI18n();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,7 +18,6 @@ function ContactForm() {
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
     };
 
-    console.log(formData);
     try {
       await createContactMessage(formData);
       try {
@@ -29,10 +30,7 @@ function ContactForm() {
         console.error("Failed to send email", err);
       }
       form.reset();
-      // alert("✅ Сообщение отправлено!");
-    } catch {
-      // alert("❌ Ошибка при отправке!");
-    }
+    } catch {}
   };
   
   return (
@@ -40,7 +38,7 @@ function ContactForm() {
       <input
         type="text"
         name="name"
-        placeholder="Имя"
+        placeholder={t('footer.contact.name')}
         required
         minLength={2}
         className="h-[70px] col-span-1 w-full rounded-lg bg-neutral-100 border border-neutral-200 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"
@@ -50,19 +48,19 @@ function ContactForm() {
         name="phone"
         minLength={9}
         required
-        placeholder="Номер телефона"
+        placeholder={t('footer.contact.phone')}
         className="h-[70px] col-span-1 w-full rounded-lg bg-neutral-100 border border-neutral-200 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"
       />
       <input
         type="email"
         name="email"
         minLength={2}
-        placeholder="Почта"
+        placeholder={t('footer.contact.email')}
         required
         className="h-[70px] md:col-span-2 w-full rounded-lg bg-neutral-100 border border-neutral-200 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"
       />
       <textarea
-        placeholder="Сообщение"
+        placeholder={t('footer.contact.message')}
         name="message"
         rows={5}
         minLength={30}
@@ -73,7 +71,7 @@ function ContactForm() {
         type="submit"
         className="uppercase h-[70px] md:col-span-2 inline-flex items-center justify-center h-12 rounded-lg bg-blue-700 text-white font-semibold tracking-wide hover:bg-blue-800 transition-colors"
       >
-       отправить
+       {t('footer.contact.send')}
       </button>
     </form>
   );
@@ -108,3 +106,4 @@ export default function ContactFormWithImage({ image }: { image?: AltMedia | nul
     </section>
   );
 }
+

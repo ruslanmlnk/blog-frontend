@@ -4,6 +4,8 @@ import "./globals.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { fetchCategories } from "@/fetch/articleCategories.fetch";
+import { I18nProvider, type Locale } from "@/i18n/I18nProvider";
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,15 +24,18 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
     const categories: any[] = await fetchCategories();
+    const cookieStore = cookies();
+    const initialLocale = (cookieStore.get('lang')?.value as Locale) || 'en';
   return (
-    <html lang="en" className={montserrat.variable}>
+    <html lang={initialLocale} className={montserrat.variable}>
       <body className={montserrat.className}>
-        <Header />
-        {children}
-        {/* <div className="min-h-svh">{children}</div> */}
-        <Footer categories={categories}/>
+        <I18nProvider initialLocale={initialLocale}>
+          <Header />
+          {children}
+          {/* <div className="min-h-svh">{children}</div> */}
+          <Footer categories={categories}/>
+        </I18nProvider>
       </body>
     </html>
   );

@@ -1,0 +1,34 @@
+{
+  "brand": { "name": "Parubets Analytics" },
+  "nav": {
+    "about": "À propos",
+    "blog": "Publications",
+    "press": "Dans les médias",
+    "interview": "Interviews",
+    "contacts": "Contacts"
+  },
+  "top": {
+    "cats": [
+      "Politique et sécurité",
+      "Économie et marchés",
+      "Société",
+      "Analyses"
+    ]
+  },
+  "mobile": { "open": "Ouvrir le menu", "close": "Fermer" },
+  "footer": {
+    "privacy": "Politique de confidentialité",
+    "copyright": "© 2025 Parubets Analytics. Tous droits réservés.",
+    "sections": "Rubriques",
+    "categories": "Catégories",
+    "contact": {
+      "title": "Contactez-nous",
+      "subtitle": "Remplissez le formulaire — nous vous répondrons prochainement.",
+      "name": "Nom",
+      "phone": "Téléphone",
+      "email": "Email",
+      "message": "Votre message",
+      "send": "Envoyer"
+    }
+  }
+}
