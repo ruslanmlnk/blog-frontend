@@ -5,7 +5,7 @@ import { Abouts } from "./types/about.type";
 
 export default async function fetchAbout() {
   try {
-    const locale = getServerLocale();
+    const locale = await getServerLocale();
     const data = await graphQLClient.request<Abouts>(aboutQuery, { locale });
     return data.Abouts.docs[0];
   } catch (error) {

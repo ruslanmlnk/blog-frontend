@@ -5,7 +5,7 @@ import { Homes } from "./types/homepage.type";
 
 export default async function fetchHomepage() {
   try {
-    const locale = getServerLocale();
+    const locale = await getServerLocale();
     const data = await graphQLClient.request<Homes>(homepageQuery, { locale });
     return data.Homes.docs[0] || null;
   } catch (error) {

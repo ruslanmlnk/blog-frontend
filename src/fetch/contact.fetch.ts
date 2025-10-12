@@ -5,7 +5,7 @@ import { Contacts } from "./types/contact.type";
 
 export default async function fetchContact() {
   try {
-    const locale = getServerLocale();
+    const locale = await getServerLocale();
     const data = await graphQLClient.request<Contacts>(contactQuery, { locale });
     return data.Contacts.docs[0];
   } catch (error) {

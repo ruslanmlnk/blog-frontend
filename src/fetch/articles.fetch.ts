@@ -5,7 +5,7 @@ import { ArticleQueryResponse, FetchArticleQueryResponse } from "./types/article
 
 export default async function fetchArticles(page: number = 1, categoryId: string = "", limit: number = 4): Promise<FetchArticleQueryResponse | null> {
     try {
-      const locale = getServerLocale();
+      const locale = await getServerLocale();
       const data = await graphQLClient.request<ArticleQueryResponse>(articleQuery, {
         page,
         limit,
@@ -23,7 +23,7 @@ export default async function fetchArticles(page: number = 1, categoryId: string
 
 export async function fetchArticle(slug: string): Promise<FetchArticleQueryResponse | null> {
       try {
-      const locale = getServerLocale();
+      const locale = await getServerLocale();
       const data = await graphQLClient.request<ArticleQueryResponse>(getArticleQuery, {
         where: { slug: { equals: slug } },
         locale,

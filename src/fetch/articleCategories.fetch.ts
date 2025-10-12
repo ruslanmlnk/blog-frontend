@@ -5,7 +5,7 @@ import type { ArticleCategoriesQueryResponse, CategoryByIdResponse, FetchArticle
 export default async function fetchArticleCategories(): Promise<FetchArticleCategoriesResponse | null> {
   try {
     const { getServerLocale } = await import('./locale');
-    const locale = getServerLocale();
+    const locale = await getServerLocale();
     const data = await graphQLClient.request<ArticleCategoriesQueryResponse>(articleCategoriesQuery, { locale });
     return { categories: data.Article_categories.docs };
   } catch (error) {
@@ -17,7 +17,7 @@ export default async function fetchArticleCategories(): Promise<FetchArticleCate
 export async function fetchCategories() {
   try {
     const { getServerLocale } = await import('./locale');
-    const locale = getServerLocale();
+    const locale = await getServerLocale();
     const data = await graphQLClient.request<ArticleCategoriesQueryResponse>(articleCategoriesQuery, { locale });
     return data.Article_categories.docs;
   } catch (error) {
@@ -29,7 +29,7 @@ export async function fetchCategories() {
 export async function fetchCategoryById(id: string) {
   try {
     const { getServerLocale } = await import('./locale');
-    const locale = getServerLocale();
+    const locale = await getServerLocale();
     const data = await graphQLClient.request<CategoryByIdResponse>(categoryByIdQuery, { id: Number(id), locale });
     return data.Article_categories.docs[0] || null;
   } catch (error) {

@@ -5,7 +5,7 @@ import type { InterviewListResponse, InterviewByIdResponse } from "./types/inter
 
 export async function fetchInterviewList() {
   try {
-    const locale = getServerLocale();
+    const locale = await getServerLocale();
     const data = await graphQLClient.request<InterviewListResponse>(interviewListQuery, { locale });
     return data.Interviews.docs;
   } catch (error) {
@@ -16,7 +16,7 @@ export async function fetchInterviewList() {
 
 export async function fetchInterviewById(id: string | number) {
   try {
-    const locale = getServerLocale();
+    const locale = await getServerLocale();
     const data = await graphQLClient.request<InterviewByIdResponse>(interviewByIdQuery, { id: Number(id), locale });
     return data.Interviews.docs[0] || null;
   } catch (error) {

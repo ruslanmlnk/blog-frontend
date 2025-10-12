@@ -25,7 +25,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
     const categories: any[] = await fetchCategories();
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const initialLocale = (cookieStore.get('lang')?.value as Locale) || 'en';
   return (
     <html lang={initialLocale} className={montserrat.variable}>

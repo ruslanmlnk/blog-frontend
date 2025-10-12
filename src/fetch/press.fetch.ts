@@ -6,7 +6,7 @@ import { getServerLocale } from "./locale";
 
 export async function fetchPressList() {
   try {
-    const locale = getServerLocale();
+    const locale = await getServerLocale();
     const data = await graphQLClient.request<PressListResponse>(pressListQuery, { locale });
     return data.Presses.docs;
   } catch (error) {
@@ -17,7 +17,7 @@ export async function fetchPressList() {
 
 export async function fetchPressById(id: string | number) {
   try {
-    const locale = getServerLocale();
+    const locale = await getServerLocale();
     const data = await graphQLClient.request<PressByIdResponse>(pressByIdQuery, { id: Number(id), locale });
     return data.Presses.docs[0] || null;
   } catch (error) {
