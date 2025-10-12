@@ -25,9 +25,9 @@ body {
   font-family: var(--font-montserrat), Arial, Helvetica, sans-serif;
 }
 
-html, body {
+/* html, body {
   overflow-x: hidden;
-}
+} */
 
 /* Shared container: 1286px including paddings */
 .site-container {
