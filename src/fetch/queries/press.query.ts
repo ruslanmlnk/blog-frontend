@@ -24,6 +24,7 @@ export const pressByIdQuery = gql`
           ... on PressOverlayHero {
             __typename
             date
+            visibleFrom
             href
             title
             subtitle
@@ -33,6 +34,7 @@ export const pressByIdQuery = gql`
             __typename
             items {
               date
+              visibleFrom
               href
               title
               description
@@ -43,6 +45,7 @@ export const pressByIdQuery = gql`
             __typename
             items {
               date
+              visibleFrom
               href
               title
               image { ${imageFragment} }

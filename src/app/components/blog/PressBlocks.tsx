@@ -26,22 +26,30 @@ export default function PressBlocks({
   sourceTitle?: string;
   avatarUrl?: string;
 }) {
+  const now = Date.now();
+  const canShow = (iso?: string) => {
+    if (!iso) return true;
+    const ts = Date.parse(iso);
+    if (Number.isNaN(ts)) return true;
+    return ts <= Date.now();
+  };
   const computedLabel = sourceTitle ? `СМИ: ${sourceTitle}` : undefined;
   return (
     <section className="mt-8 flex flex-col gap-y-[55px]">
       {blocks.map((block: any, idx: number) => {
         switch (block.__typename) {
           case "PressOverlayPair": {
-            const items = (block.items || []).map((it: any) => ({
+            const items = (block.items || []).filter((it: any) => canShow(it.visibleFrom)).map((it: any) => ({
               href: it.href || '#',
               image: it.image?.url || '',
               title: it.title || '',
               dateLabel: toDateLabel(it.date),
             }));
+            if (!items.length) return null;
             return <BlogOverlayPair key={idx} items={items} />;
           }
           case "PressCardGrid": {
-            const items = (block.items || []).map((it: any) => ({
+            const items = (block.items || []).filter((it: any) => canShow(it.visibleFrom)).map((it: any) => ({
               href: it.href || '#',
               image: it.image?.url || '',
               title: it.title || '',
@@ -50,10 +58,12 @@ export default function PressBlocks({
               avatar: avatarUrl,
               sourceLabel: computedLabel,
             }));
+            if (!items.length) return null;
             return <BlogCardGrid key={idx} items={items} />;
           }
           case "PressOverlayHero": {
             const it = block;
+            if (!canShow(it.visibleFrom)) return null;
             const item = it
               ? {
                   href: it.href || '#',
@@ -72,3 +82,6 @@ export default function PressBlocks({
     </section>
   );
 }
+
+
+

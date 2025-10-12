@@ -21,6 +21,7 @@ export const interviewByIdQuery = gql`
         content {
           ... on InterviewOverlayHero {
             __typename
+            visibleFrom
             href
             title
             subtitle
@@ -29,6 +30,7 @@ export const interviewByIdQuery = gql`
           ... on InterviewCardGrid {
             __typename
             items {
+              visibleFrom
               href
               title
               description
@@ -38,6 +40,7 @@ export const interviewByIdQuery = gql`
           ... on InterviewOverlayPair {
             __typename
             items {
+              visibleFrom
               href
               title
               image { ${imageFragment} }

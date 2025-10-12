@@ -24,6 +24,7 @@ export const categoryByIdQuery = gql`
           ... on CategoryOverlayPair {
             __typename
             items {
+              visibleFrom
               article {
                 title
                 slug
@@ -37,6 +38,7 @@ export const categoryByIdQuery = gql`
           ... on CategoryCardGrid {
             __typename
             items {
+              visibleFrom
               article {
                 title
                 slug
@@ -49,6 +51,7 @@ export const categoryByIdQuery = gql`
           }
           ... on CategoryOverlayHero {
             __typename
+            visibleFrom
             article {
               title
               slug

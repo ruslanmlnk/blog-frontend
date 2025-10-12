@@ -22,13 +22,20 @@ export default function CategoryBlocks({
   avatarUrl?: string;
   sourceLabel?: string;
 }) {
+  const now = Date.now();
+  const canShow = (iso?: string) => {
+    if (!iso) return true;
+    const ts = Date.parse(iso);
+    if (Number.isNaN(ts)) return true;
+    return ts <= now;
+  };
   return (
     <section className="mt-8 flex flex-col gap-y-[55px]">
       {blocks.map((block, idx) => {
         console.log(block.__typename);
         switch (block.__typename) {
           case "CategoryOverlayPair": {
-            const items = (block as any).items?.map((it: any) => ({
+            const items = (block as any).items?.filter((it: any) => canShow(it.visibleFrom)).map((it: any) => ({
               href: `/blog/${it.article?.slug}`,
               image: it.article?.bg?.url || "",
               title: it.article?.title || "",
@@ -37,7 +44,7 @@ export default function CategoryBlocks({
             return <BlogOverlayPair key={idx} items={items} />;
           }
           case "CategoryCardGrid": {
-            const items = (block as any).items?.map((it: any) => ({
+            const items = (block as any).items?.filter((it: any) => canShow(it.visibleFrom)).map((it: any) => ({
               href: `/blog/${it.article?.slug}`,
               image: it.article?.bg?.url || "",
               title: it.article?.title || "",
@@ -51,6 +58,7 @@ export default function CategoryBlocks({
           case "CategoryOverlayHero": {
             const a = (block as any).article;
             console.log(a.category);
+            if (!canShow((block as any).visibleFrom)) return null;
             const item = a
               ? {
                   href: `/blog/${a.slug}`,

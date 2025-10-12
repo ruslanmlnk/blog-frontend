@@ -8,11 +8,18 @@ export default function HomeTrends({
   title?: string;
   items?: any[];
 }) {
+  const now = Date.now();
+  const canShow = (iso?: string) => {
+    if (!iso) return true;
+    const ts = Date.parse(iso);
+    if (Number.isNaN(ts)) return true;
+    return ts <= now;
+  };
   return (
     <div className="bg-white rounded-[10px] shadow-[0_8px_24px_rgba(0,0,0,0.08)] px-[25px] py-[45px]">
       <h4 className="text-[17px] font-bold text-[#151515] mb-[30px] leadin-[160%]">{title}</h4>
       <div className="space-y-5">
-        {items.map((it, i) => (
+        {items.filter((it) => canShow(it?.visibleFrom)).map((it, i) => (
           <Link key={i} href={`/blog/${it?.article?.slug ?? ''}`} className={`flex gap-[15px] ${i !== items.length - 1 ? 'border-b border-[#E0E0E0]' : ''} pb-[20px]`}>
             <img
               src={it?.article?.bg?.url ?? ''}
@@ -29,4 +36,5 @@ export default function HomeTrends({
     </div>
   );
 }
+
 

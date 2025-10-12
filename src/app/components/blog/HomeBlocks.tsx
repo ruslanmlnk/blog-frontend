@@ -12,13 +12,20 @@ const toDate = (iso?: string) => {
 };
 
 export default function HomeBlocks({ blocks = [] as any[] }) {
-
+  const now = Date.now();
+  const canShow = (iso?: string) => {
+    if (!iso) return true;
+    const ts = Date.parse(iso);
+    if (Number.isNaN(ts)) return true;
+    return ts <= now;
+  };
   return (
     <>
       {blocks.map((b, idx) => {
         switch (b.__typename) {
           case "HomeFeatured":
           case "homeFeatured":
+            if (!canShow(b.visibleFrom)) return null;
             return (
               <HomeFeatured
                 key={idx}
@@ -30,13 +37,16 @@ export default function HomeBlocks({ blocks = [] as any[] }) {
             );
           case "CategoryCardGrid":
           case "categoryCardGrid": {
-            const items = (b.items || []).map((it: any) => ({
+            const items = (b.items || [])
+              .filter((it: any) => canShow(it.visibleFrom))
+              .map((it: any) => ({
               href: `/blog/${it.article?.slug}`,
               image: it.article?.bg?.url || "",
               title: it.article?.title || "",
               description: it.article?.description || "",
               dateLabel: toDate(it.article?.createdAt),
             }));
+            if (!items.length) return null;
             return <BlogCardGrid key={idx} twoCols items={items} />;
           }
           default:

@@ -10,16 +10,17 @@ export const homepageQuery = gql`
         description
         trends {
           title
-          items { article { ${articleFragment} } }
+          items { visibleFrom article { ${articleFragment} } }
         }
         content {
           ... on HomeFeatured {
             __typename
+            visibleFrom
             article { ${articleFragment} }
           }
           ... on CategoryCardGrid {
             __typename
-            items { article { ${articleFragment} } }
+            items { visibleFrom article { ${articleFragment} } }
           }
         }
       }
