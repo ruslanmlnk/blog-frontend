@@ -26,7 +26,9 @@ export default function HomeFeatured({
           dangerouslySetInnerHTML={{ __html: title }}
         />
         <p className="text-center text-[#767676] text-base tracking-[-0.4px] leading-[22px] max-w-[590px] mt-[13px]">
-          {description}
+          {description.length > 75
+      ? `${description.slice(0, 75)}...`
+      : description}
         </p>
       </div>
     </article>
