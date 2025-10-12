@@ -31,7 +31,7 @@ export default async function RootLayout({
     <html lang={initialLocale} className={montserrat.variable}>
       <body className={montserrat.className}>
         <I18nProvider initialLocale={initialLocale}>
-          <Header />
+          <Header categories={categories}/>
           {children}
           {/* <div className="min-h-svh">{children}</div> */}
           <Footer categories={categories}/>

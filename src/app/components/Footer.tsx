@@ -4,8 +4,8 @@ import { createWeeklyNewsletter } from "@/fetch/weekly.fetch";
 import { createContactMessage } from "@/fetch/contactMessage.fetch";
 import Link from "next/link";
 import { useI18n } from "@/i18n/I18nProvider";
+import { ChipItem } from "./Header";
 
-type ChipItem = { id: string | number; title: string; icon?: AltMedia | null };
 
 export default function Footer({ categories }: { categories?: ChipItem[] }) {
   const { t } = useI18n();

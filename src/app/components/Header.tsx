@@ -6,16 +6,19 @@ import TopCategoriesBar from "./TopCategoriesBar";
 import MobileNav from "./MobileNav";
 import LanguageSelector from "./LanguageSelector";
 import { useI18n } from "@/i18n/I18nProvider";
+import { AltMedia } from "@/fetch/types/image.type";
 
-export default function Header() {
+export type ChipItem = { id: string | number; title: string; icon?: AltMedia | null };
+
+export default function Header({ categories }: { categories?: ChipItem[] }) {
   const { t } = useI18n();
   // Static items per request: no admin fetching
-  const categories = [
-    { id: "1", title: "ПОЛИТИКА И ВЫБОРЫ" },
-    { id: "2", title: "РЕПРЕССИИ В РОССИИ" },
-    { id: "3", title: "ЕВРОПА" },
-    { id: "4", title: "УКРАИНА" },
-  ];
+  // const categories = [
+  //   { id: "1", title: "ПОЛИТИКА И ВЫБОРЫ" },
+  //   { id: "2", title: "РЕПРЕССИИ В РОССИИ" },
+  //   { id: "3", title: "ЕВРОПА" },
+  //   { id: "4", title: "УКРАИНА" },
+  // ];
 
   const navItems = [
     { label: "О центре", href: "/about" },
@@ -42,7 +45,7 @@ export default function Header() {
 
   return (
     <header className="w-full">
-      <TopCategoriesBar items={i18nCategories.map((c) => c.title)} />
+      <TopCategoriesBar items={categories?.map((c) => c.title)} />
 
       {/* Main bar */}
       <div className="bg-white border border-[#E0E0E0]">
