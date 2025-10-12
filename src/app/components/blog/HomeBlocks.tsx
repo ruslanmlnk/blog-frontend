@@ -33,6 +33,7 @@ export default function HomeBlocks({ blocks = [] as any[] }) {
                 dateLabel={toDate(b.article?.createdAt) || ""}
                 title={b.article?.title}
                 description={b.article?.description}
+                href={`/blog/${b.article?.slug}`}
               />
             );
           case "CategoryCardGrid":

@@ -1,11 +1,14 @@
 //import Image from "next/image";
 
+import Link from "next/link";
+
 type HomeFeaturedProps = {
   image: string;
   alt?: string;
   dateLabel: string;
   title: string; // Can contain <br/>; rendered as HTML
   description: string;
+  href: string;
 };
 
 export default function HomeFeatured({
@@ -14,8 +17,10 @@ export default function HomeFeatured({
   dateLabel,
   title,
   description,
+  href
 }: HomeFeaturedProps) {
   return (
+    <Link href={href}>
     <article className="mb-5 rounded-[10px] overflow-hidden bg-white ring-1 ring-neutral-200 shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
       <img src={image} alt={alt} className="w-full h-auto md:h-[492.05px] object-cover" />
       <div className="py-[35px] px-[10px] md:py-[35px] text-center flex flex-col items-center">
@@ -32,6 +37,7 @@ export default function HomeFeatured({
         </p>
       </div>
     </article>
+    </Link>
   );
 }
 
