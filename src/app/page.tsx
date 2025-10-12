@@ -14,7 +14,8 @@ export default async function Home({
   const trends = home?.trends;
   const contentBlocks = allBlocks.filter((b: any) => b?.__typename !== 'HomeTrends' && b?.__typename !== 'homeTrends');
   const perPage = 5;
-  const rawPage = await searchParams?.page ?? 1;
+  const s = await searchParams;
+  const rawPage = s?.page ?? 1;
   const pageNum = Math.max(1, Number(Array.isArray(rawPage) ? rawPage[0] : rawPage) || 1);
   const totalPages = Math.max(1, Math.ceil(contentBlocks.length / perPage));
   const currentPage = Math.min(pageNum, totalPages);

@@ -10,7 +10,7 @@ export const homepageQuery = gql`
         description
         trends {
           title
-          items { visibleFrom article { ${articleFragment} } }
+          items { article { ${articleFragment} } }
         }
         content {
           ... on HomeFeatured {
