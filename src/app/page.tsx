@@ -47,7 +47,7 @@ export default async function Home({
         </div>
 
         {/* Right: Sidebar */}
-        <aside className="space-y-8 sticky top-[50px] self-start">
+        <aside className="space-y-8 md:sticky md:top-[50px] md:self-start">
           {/* Categories card */}
           <CategoriesPanel />
 
