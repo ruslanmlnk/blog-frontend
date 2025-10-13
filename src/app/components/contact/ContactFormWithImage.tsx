@@ -1,7 +1,7 @@
 "use client"
 import { createContactMessage } from "@/fetch/contactMessage.fetch";
 import type { AltMedia } from "@/fetch/types/image.type";
-//import Image from "next/image";
+import Image from "next/image";
 import { useI18n } from "@/i18n/I18nProvider";
 
 function ContactForm() {
@@ -85,12 +85,27 @@ function ContactVisual({ image }: { image?: AltMedia | null }) {
 
   return (
     <div className="order-1 md:order-2 relative rounded-[30px] overflow-hidden min-h-[220px] md:min-h-[360px] bg-gradient-to-br from-neutral-200 via-neutral-100 to-neutral-300">
-      <img src={src} alt={alt} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-cover"
+        sizes="(max-width: 768px) 100vw, 50vw"
+        loading="lazy"
+      />
       <div className="absolute bottom-8 right-8 w-20 h-20 rounded-full bg-white shadow-md ring-1 ring-neutral-200 flex items-center justify-center">
-        <svg width="34" height="31" viewBox="0 0 34 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M1.41904 27.3455C0.750342 27.9232 0.67654 28.9335 1.2542 29.6022C1.83186 30.2709 2.84223 30.3447 3.51093 29.7671L2.46498 28.5563L1.41904 27.3455ZM33.1305 3.56073C33.1949 2.67942 32.5326 1.91279 31.6513 1.84842L17.2896 0.799393C16.4082 0.73502 15.6416 1.39728 15.5772 2.27858C15.5129 3.15989 16.1751 3.92652 17.0564 3.99089L29.8224 4.92336L28.89 17.6894C28.8256 18.5707 29.4878 19.3373 30.3691 19.4017C31.2505 19.466 32.0171 18.8038 32.0815 17.9225L33.1305 3.56073ZM2.46498 28.5563L3.51093 29.7671L32.5807 4.65495L31.5347 3.44417L30.4888 2.23339L1.41904 27.3455L2.46498 28.5563Z" fill="#0243A5"/>
+        <svg
+          width="34"
+          height="31"
+          viewBox="0 0 34 31"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1.41904 27.3455C0.750342 27.9232 0.67654 28.9335 1.2542 29.6022C1.83186 30.2709 2.84223 30.3447 3.51093 29.7671L2.46498 28.5563L1.41904 27.3455ZM33.1305 3.56073C33.1949 2.67942 32.5326 1.91279 31.6513 1.84842L17.2896 0.799393C16.4082 0.73502 15.6416 1.39728 15.5772 2.27858C15.5129 3.15989 16.1751 3.92652 17.0564 3.99089L29.8224 4.92336L28.89 17.6894C28.8256 18.5707 29.4878 19.3373 30.3691 19.4017C31.2505 19.466 32.0171 18.8038 32.0815 17.9225L33.1305 3.56073ZM2.46498 28.5563L3.51093 29.7671L32.5807 4.65495L31.5347 3.44417L30.4888 2.23339L1.41904 27.3455L2.46498 28.5563Z"
+            fill="#0243A5"
+          />
         </svg>
-
       </div>
     </div>
   );

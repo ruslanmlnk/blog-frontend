@@ -1,16 +1,20 @@
 import { BlockImage } from "@/fetch/types/article.type";
-import Image from 'next/image';
+import Image from "next/image";
 
 export default function ArticleImage({ image, caption }: BlockImage) {
   if (!image) return null;
 
   return (
     <div className="mt-[40px]">
-      <div className="w-full">
-        <img
+      <div className="relative w-full h-auto">
+        <Image
           src={image.url}
           alt={image.alt || caption || "Article image"}
-          className="object-cover rounded-lg"
+          width={1200} // бажано вказати орієнтовну ширину
+          height={800} // і висоту для оптимізації
+          className="object-cover rounded-lg w-full h-auto"
+          sizes="(max-width: 768px) 100vw, 1200px"
+          loading="lazy"
         />
       </div>
       {caption && (

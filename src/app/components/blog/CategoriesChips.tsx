@@ -1,5 +1,5 @@
 import Link from "next/link";
-//import Image from "next/image";
+import Image from "next/image";
 import { fetchCategories } from "@/fetch/articleCategories.fetch";
 import type { AltMedia } from "@/fetch/types/image.type";
 
@@ -51,13 +51,16 @@ export default async function CategoriesChips({
             return (
               <Link key={id} href={hrefFor ? hrefFor(id) : `/blog?category=${encodeURIComponent(String(id))}`} className={`${base} ${style}`}>
                 {icon?.url ? (
-                  <img
-                    src={icon.url}
-                    alt={icon.alt || title}
-                    className="mr-[10px] w-6"
-                    loading="lazy"
-                  />
-                ) : ''}
+                  <div className="relative w-6 h-6 mr-[10px]">
+                    <Image
+                      src={icon.url}
+                      alt={icon.alt || title}
+                      fill
+                      style={{ objectFit: "contain" }}
+                      loading="lazy"
+                    />
+                  </div>
+                ) : null}
                 {title}
               </Link>
             );
@@ -67,4 +70,3 @@ export default async function CategoriesChips({
     </div>
   );
 }
-
