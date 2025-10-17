@@ -53,16 +53,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           {articleData.title}
       </h1>
 
-
-       {articleData.createdAt && (
-            <div className="text-center font-bold text[12px] text-[#7F7F7F] mb-[74px] uppercase leading-[160%]">
-              {new Date(articleData.createdAt).toLocaleDateString('uk-UA', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </div>
-        )}
+       {/* Date hidden here since display date is driven by blocks */}
 
 
       {/* {articleData.bg && (
@@ -89,15 +80,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               {articleData.category.title}
             </span>
           )}
-          {articleData.createdAt && (
-            <time dateTime={articleData.createdAt}>
-              {new Date(articleData.createdAt).toLocaleDateString('uk-UA', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </time>
-          )}
+          {/* Date omitted intentionally on article page */}
         </div> */}
 
       {/* Контент статті */}

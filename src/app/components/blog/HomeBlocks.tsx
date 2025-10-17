@@ -30,7 +30,7 @@ export default function HomeBlocks({ blocks = [] as any[] }) {
               <HomeFeatured
                 key={idx}
                 image={b.article?.bg?.url || ""}
-                dateLabel={toDate(b.article?.createdAt) || ""}
+                dateLabel={toDate(b.visibleFrom) || ""}
                 title={b.article?.title}
                 description={b.article?.description}
                 href={`/blog/${b.article?.slug}`}
@@ -45,7 +45,7 @@ export default function HomeBlocks({ blocks = [] as any[] }) {
               image: it.article?.bg?.url || "",
               title: it.article?.title || "",
               description: it.article?.description || "",
-              dateLabel: toDate(it.article?.createdAt),
+              dateLabel: toDate(it.visibleFrom),
             }));
             if (!items.length) return null;
             return <BlogCardGrid key={idx} twoCols items={items} />;

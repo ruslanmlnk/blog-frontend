@@ -76,6 +76,40 @@ export default function RichContent({ content }: RichContentProps) {
               />
             ) : null;
 
+          case 'table': {
+            const rows = child.children?.filter((n: any) => n.type === 'tablerow') || [];
+            return (
+              <div key={index} className="overflow-x-auto">
+                <table className="w-full border-collapse border border-gray-300">
+                  <tbody>
+                    {rows.map((row: any, rIdx: number) => (
+                      <tr key={rIdx} className="border-b border-gray-300">
+                        {(row.children || [])
+                          .filter((cell: any) => cell.type === 'tablecell')
+                          .map((cell: any, cIdx: number) => {
+                            const Tag: any = cell.headerState && cell.headerState > 0 ? 'th' : 'td';
+                            const html = extractText(cell);
+                            const style: Record<string, string> = {};
+                            if (cell.backgroundColor) style.backgroundColor = cell.backgroundColor;
+                            return (
+                              <Tag
+                                key={cIdx}
+                                colSpan={cell.colSpan && cell.colSpan > 1 ? cell.colSpan : undefined}
+                                rowSpan={cell.rowSpan && cell.rowSpan > 1 ? cell.rowSpan : undefined}
+                                className="border border-gray-300 p-2 align-top"
+                                style={style}
+                                dangerouslySetInnerHTML={{ __html: html }}
+                              />
+                            );
+                          })}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            );
+          }
+
           default:
             return null;
         }

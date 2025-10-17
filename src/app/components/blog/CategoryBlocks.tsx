@@ -39,7 +39,7 @@ export default function CategoryBlocks({
               href: `/blog/${it.article?.slug}`,
               image: it.article?.bg?.url || "",
               title: it.article?.title || "",
-              dateLabel: toDateLabel(it.article?.createdAt),
+              dateLabel: toDateLabel(it.visibleFrom),
             }));
             return <BlogOverlayPair key={idx} items={items} />;
           }
@@ -49,7 +49,7 @@ export default function CategoryBlocks({
               image: it.article?.bg?.url || "",
               title: it.article?.title || "",
               description: it.article?.description || "",
-              dateLabel: toDateLabel(it.article?.createdAt),
+              dateLabel: toDateLabel(it.visibleFrom),
               avatar: avatarUrl,
               sourceLabel: sourceLabel,
             }));
@@ -66,7 +66,7 @@ export default function CategoryBlocks({
                   // Show category as main title, article title as subtitle
                   title: a.category?.title || "",
                   subtitle: a.title || "",
-                  dateLabel: toDateLabel(a.createdAt),
+                  dateLabel: toDateLabel((block as any).visibleFrom),
                 }
               : undefined;
             return <BlogOverlayHero key={idx} item={item} />;
