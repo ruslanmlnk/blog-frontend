@@ -74,14 +74,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </p>
         )} */}
 
-        {/* <div className="flex items-center gap-4 text-sm text-[#6B7280]">
-          {articleData.category && (
-            <span className="bg-gray-100 px-3 py-1 rounded-full">
-              {articleData.category.title}
-            </span>
-          )}
-          {/* Date omitted intentionally on article page */}
-        </div> */}
+        {/* Category/date meta intentionally omitted */}
 
       {/* Контент статті */}
       {/* <div className="w-full flex flex-col gap-[74px]">
