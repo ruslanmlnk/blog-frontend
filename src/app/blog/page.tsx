@@ -3,8 +3,39 @@ import CategoryBlocks from "@/app/components/blog/CategoryBlocks";
 import BlocksPagination from "@/app/components/blog/BlocksPagination";
 import { fetchCategories, fetchCategoryById } from "@/fetch/articleCategories.fetch";
 import { CategoryBlock } from "@/fetch/types/articleCategories.type";
+import type { Metadata } from "next";
+
 
 export const dynamic = "force-dynamic";
+
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: { category?: string | string[]; page?: string | string[] };
+}): Promise<Metadata> {
+  const rawCat = searchParams?.category ?? null;
+  let categoryKey: string | null = Array.isArray(rawCat) ? rawCat[0] : rawCat ?? null;
+  if (!categoryKey) {
+    const list = await fetchCategories();
+    categoryKey = list?.[0]?.id != null ? String(list[0].id) : null;
+  }
+
+  const category = categoryKey ? await fetchCategoryById(categoryKey) : null;
+  const title = category?.title ? `Блог | ${category.title}` : "Блог";
+  const description =
+    category?.title
+      ? `Читайте матеріали у категорії "${category.title}" в блозі Parubets Analytics.`
+      : "Блог Parubets Analytics — аналітика, статті та дослідження з актуальних тем.";
+
+  return {
+    title,
+    description,
+  };
+}
+
+
+
 
 export default async function Blog({
   searchParams,

@@ -3,6 +3,31 @@ import HomeBlocks from "@/app/components/blog/HomeBlocks";
 import BlocksPagination from "@/app/components/blog/BlocksPagination";
 import HomeTrends from "@/app/components/blog/HomeTrends";
 import fetchHomepage from "@/fetch/homepage.fetch";
+import type { Metadata } from "next";
+
+
+export async function generateMetadata(): Promise<Metadata> {
+  const home = await fetchHomepage();
+
+  return {
+    title: home?.title || "PARUBETS ANALYTICS",
+    description:
+      home?.description ||
+      "Независимый аналитический центр, исследующий политические репрессии, войну и нарушения прав человека в Восточной Европе",
+    openGraph: {
+      title: home?.title || "PARUBETS ANALYTICS",
+      description:
+        home?.description ||
+        "Независимый аналитический центр, исследующий политические репрессии, войну и нарушения прав человека в Восточной Европе",
+      url: "https://parubets.org", // заміни на свій домен
+      siteName: "Parubets Analytics",
+      type: "website",
+    },
+  };
+}
+
+
+
 
 export default async function Home({
   searchParams,

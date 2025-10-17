@@ -7,10 +7,9 @@ const nextConfig: NextConfig = {
     images: {
       remotePatterns: [
         {
-          protocol: "http",
-          hostname: "91.219.63.21",
-          port: "3001", // твій бекенд порт
-          pathname: "/api/media/file/**",
+          protocol: "https",
+          hostname: "api.parubets.org",
+          pathname: "/api/media/**",
         },
       ],
     },
