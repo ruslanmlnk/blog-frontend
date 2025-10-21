@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { fetchCategories } from "@/fetch/articleCategories.fetch";
 import type { AltMedia } from "@/fetch/types/image.type";
+import { getServerLocale } from "@/fetch/locale";
 
 function BackToAllIcon() {
   return (
@@ -27,6 +28,8 @@ export default async function CategoriesChips({
   backLabel?: string;
 }) {
   const categories: any[] = items ?? (await fetchCategories());
+  const locale = await getServerLocale();
+  const ALL = locale === "uk" ? "Всі" : locale === "ru" ? "Все" : locale === "fr" ? "Tous" : "All";
 
   return (
     <div className="bg-[#0B4CC0] border border-[#E0E0E0]">
@@ -41,7 +44,7 @@ export default async function CategoriesChips({
         <div className="flex items-center gap-4 not-md:flex-col justify-center">
           {categories.map((c: any) => {
             const id = (c.id ?? c._id) as string | number;
-            const title = (c.title ?? c.name) as string;
+            const title = String(id) === "hub" ? ALL : ((c.title ?? c.name) as string);
             const icon = c.icon as AltMedia | null | undefined;
             const active = selectedId === String(id);
             const base = "inline-flex items-center px-5 py-3 md:px-6 md:py-[20px] rounded-[10px] text-[12px] md:text-[14px] leading-[160%] font-bold";

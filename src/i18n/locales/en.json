@@ -1,5 +1,6 @@
 {
   "brand": { "name": "Parubets Analytics" },
+  "common": { "all": "All" },
   "nav": {
     "about": "About",
     "blog": "Publications",
