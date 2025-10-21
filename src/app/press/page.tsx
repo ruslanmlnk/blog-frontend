@@ -199,7 +199,9 @@ export default async function Press({ searchParams }: { searchParams: SearchPara
       />
 
       <div className="max-w-[1318px] mx-auto px-4 py-10 md:py-25">
-        <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-8 uppercase">ПРЕСА ТА МЕДІА</h1>
+        <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-8 uppercase">
+          {isHub ? "Всі статті" : (pressDoc?.title || "ПРЕСА ТА МЕДІА")}
+        </h1>
 
         {pageBlocks.length ? (
           <PressBlocks
