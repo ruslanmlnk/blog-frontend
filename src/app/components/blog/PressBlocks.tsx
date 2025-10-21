@@ -72,7 +72,7 @@ export default function PressBlocks({
               title: it.title || '',
               description: truncate(it.description || '', 75),
               dateLabel: toDateLabel(it.visibleFrom),
-              avatar: avatarUrl ||  it.linkedPress?.icon.url,
+              avatar: avatarUrl ||  it.linkedPress?.icon?.url,
               sourceLabel: sourceTitle ? computedLabel : `СМИ: ${it.linkedPress?.title}`,
             }));
             console.log(items)
@@ -101,6 +101,5 @@ export default function PressBlocks({
     </section>
   );
 }
-
 
 
