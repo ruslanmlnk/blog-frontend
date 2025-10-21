@@ -2,7 +2,7 @@ import type { AltMedia } from "./image.type";
 
 export interface PressOverlayHeroBlock {
   __typename: 'PressOverlayHero';
-  date?: string;
+  visibleFrom?: string;
   href: string;
   title: string;
   subtitle?: string;
@@ -10,7 +10,7 @@ export interface PressOverlayHeroBlock {
 }
 
 export interface PressCardGridBlockItem {
-  date?: string;
+  visibleFrom?: string;
   href: string;
   title: string;
   description?: string;
@@ -22,7 +22,7 @@ export interface PressCardGridBlock {
 }
 
 export interface PressOverlayPairBlockItem {
-  date?: string;
+  visibleFrom?: string;
   href: string;
   title: string;
   image: AltMedia;

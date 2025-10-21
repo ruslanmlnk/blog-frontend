@@ -2,6 +2,7 @@ import type { AltMedia } from "./image.type";
 
 export interface InterviewOverlayHeroBlock {
   __typename: 'InterviewOverlayHero';
+  visibleFrom?: string;
   href: string;
   title: string;
   subtitle?: string;
@@ -9,6 +10,7 @@ export interface InterviewOverlayHeroBlock {
 }
 
 export interface InterviewCardGridBlockItem {
+  visibleFrom?: string;
   href: string;
   title: string;
   description?: string;
@@ -20,6 +22,7 @@ export interface InterviewCardGridBlock {
 }
 
 export interface InterviewOverlayPairBlockItem {
+  visibleFrom?: string;
   href: string;
   title: string;
   image: AltMedia;
