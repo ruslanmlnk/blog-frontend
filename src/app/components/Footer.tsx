@@ -189,7 +189,7 @@ export default function Footer({ categories }: { categories?: ChipItem[] }) {
       {/* Bottom bar */}
       <div className="border-t border-[#E0E0E0]">
         <div className="site-container not-md:text-center not-md:gap-2 not-md:py-[20px] md:h-[117px] flex not-md:flex-col items-center justify-between text-sm text-neutral-600">
-          <a className="hover:text-neutral-900" href="#">{t('footer.privacy')}</a>
+          <a className="hover:text-neutral-900" href="/privacy-policy">{t('footer.privacy')}</a>
           <div>{t('footer.copyright')}</div>
         </div>
       </div>

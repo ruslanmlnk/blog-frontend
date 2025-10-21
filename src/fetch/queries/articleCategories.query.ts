@@ -3,7 +3,7 @@ import imageFragment from "../fragments/image.fragment";
 
 export const articleCategoriesQuery = gql`
 query getArticleCategories($locale: LocaleInputType) {
-  Article_categories(locale: $locale) {
+  Article_categories(locale: $locale, sort: "sortOrder") {
     docs {
       id
       title
@@ -19,6 +19,10 @@ export const categoryByIdQuery = gql`
       docs {
         id
         title
+	meta{
+          metaTitle
+          metaDescription
+        }
         icon { ${imageFragment} }
         content {
           ... on CategoryOverlayPair {

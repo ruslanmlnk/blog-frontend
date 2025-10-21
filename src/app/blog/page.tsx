@@ -22,11 +22,15 @@ export async function generateMetadata({
   }
 
   const category = categoryKey ? await fetchCategoryById(categoryKey) : null;
-  const title = category?.title ? `Блог | ${category.title}` : "Блог";
-  const description =
-    category?.title
-      ? `Читайте матеріали у категорії "${category.title}" в блозі Parubets Analytics.`
-      : "Блог Parubets Analytics — аналітика, статті та дослідження з актуальних тем.";
+  const title =
+  category?.meta?.metaTitle || (category?.title ? `Блог | ${category.title}` : "Блог");
+
+const description =
+  category?.meta?.metaDescription ||
+  (category?.title
+    ? `Читайте матеріали у категорії "${category.title}" в блозі Parubets Analytics.`
+    : "Блог Parubets Analytics — аналітика, статті та дослідження з актуальних тем.");
+
 
   return {
     title,

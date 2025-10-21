@@ -8,6 +8,10 @@ export interface AboutCard {
 export interface About {
   id: string;
   title: string;
+  meta?: {
+    metaTitle?: string | null;
+    metaDescription?: string | null;
+  };
   lead: string;
   heroImage?: AltMedia | null;
   cards: AboutCard[];

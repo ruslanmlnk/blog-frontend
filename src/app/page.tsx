@@ -5,29 +5,14 @@ import HomeTrends from "@/app/components/blog/HomeTrends";
 import fetchHomepage from "@/fetch/homepage.fetch";
 import type { Metadata } from "next";
 
-
-export async function generateMetadata(): Promise<Metadata> {
-  const home = await fetchHomepage();
+export async function generateMetadata() {
+  const contact = await fetchHomepage();
 
   return {
-    title: home?.title || "PARUBETS ANALYTICS",
-    description:
-      home?.description ||
-      "Независимый аналитический центр, исследующий политические репрессии, войну и нарушения прав человека в Восточной Европе",
-    openGraph: {
-      title: home?.title || "PARUBETS ANALYTICS",
-      description:
-        home?.description ||
-        "Независимый аналитический центр, исследующий политические репрессии, войну и нарушения прав человека в Восточной Европе",
-      url: "https://parubets.org", // заміни на свій домен
-      siteName: "Parubets Analytics",
-      type: "website",
-    },
+    title: contact?.meta?.metaTitle || "Contact us",
+    description: contact?.meta?.metaDescription || "Get in touch with us",
   };
 }
-
-
-
 
 export default async function Home({
   searchParams,

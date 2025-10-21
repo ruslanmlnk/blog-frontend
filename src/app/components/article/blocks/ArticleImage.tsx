@@ -12,7 +12,7 @@ export default function ArticleImage({ image, caption }: BlockImage) {
           alt={image.alt || caption || "Article image"}
           width={1200} // бажано вказати орієнтовну ширину
           height={800} // і висоту для оптимізації
-          className="object-cover rounded-lg w-full h-auto"
+          className="object-cover rounded-lg min-w-[30%] max-w-[100%] w-auto h-auto"
           sizes="(max-width: 768px) 100vw, 1200px"
           loading="lazy"
         />

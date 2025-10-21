@@ -35,7 +35,7 @@ export default function LanguageSelector({ className = "" }: Props) {
         onClick={() => setOpen((v) => !v)}
         className="flex items-center gap-1 uppercase font-semibold text-[#151515] hover:text-neutral-900 transition-colors"
       >
-        <span>{locale.toUpperCase()}</span>
+        <span>{locale === "uk" ? "UA" : locale.toUpperCase()}</span>
         <svg
           width="14"
           height="14"
@@ -71,7 +71,7 @@ export default function LanguageSelector({ className = "" }: Props) {
                   try { router.refresh(); } catch {}
                 }}
               >
-                {l.toUpperCase()}
+                {l === "uk" ? "UA" : l.toUpperCase()}
               </button>
             </li>
           ))}

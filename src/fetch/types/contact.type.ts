@@ -5,6 +5,10 @@ export interface Contact {
   title: string;
   description: string;
   sideImage?: AltMedia | null;
+  meta?: {
+    metaTitle?: string | null;
+    metaDescription?: string | null;
+  };
 }
 
 export interface Contacts {

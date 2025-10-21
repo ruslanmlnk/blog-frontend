@@ -7,6 +7,10 @@ export const aboutQuery = gql`
       docs {
         id
         title
+        meta{
+          metaTitle
+          metaDescription
+        }
         lead
         heroImage {
           ${imageFragment}

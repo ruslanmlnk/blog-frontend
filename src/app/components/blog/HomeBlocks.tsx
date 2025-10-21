@@ -1,15 +1,7 @@
 import HomeFeatured from "./HomeFeatured";
 import BlogCardGrid from "./BlogCardGrid";
+import {toDateLabel} from "./PressBlocks"
 
-const toDate = (iso?: string) => {
-  try {
-    if (!iso) return undefined;
-    const d = new Date(iso);
-    return d.toLocaleDateString(undefined, { day: "2-digit", month: "long", year: "numeric" });
-  } catch {
-    return undefined;
-  }
-};
 
 export default function HomeBlocks({ blocks = [] as any[] }) {
   const now = Date.now();
@@ -19,6 +11,7 @@ export default function HomeBlocks({ blocks = [] as any[] }) {
     if (Number.isNaN(ts)) return true;
     return ts <= now;
   };
+
   return (
     <>
       {blocks.map((b, idx) => {
@@ -30,7 +23,7 @@ export default function HomeBlocks({ blocks = [] as any[] }) {
               <HomeFeatured
                 key={idx}
                 image={b.article?.bg?.url || ""}
-                dateLabel={toDate(b.visibleFrom) || ""}
+                dateLabel={toDateLabel(b.visibleFrom) || ""}
                 title={b.article?.title}
                 description={b.article?.description}
                 href={`/blog/${b.article?.slug}`}
@@ -45,7 +38,7 @@ export default function HomeBlocks({ blocks = [] as any[] }) {
               image: it.article?.bg?.url || "",
               title: it.article?.title || "",
               description: it.article?.description || "",
-              dateLabel: toDate(it.visibleFrom),
+              dateLabel: toDateLabel(it.visibleFrom),
             }));
             if (!items.length) return null;
             return <BlogCardGrid key={idx} twoCols items={items} />;

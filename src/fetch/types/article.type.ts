@@ -38,6 +38,10 @@ export interface BlockParagraph {
 
 export interface Article {
   title: string;
+  meta?: {
+    metaTitle?: string | null;
+    metaDescription?: string | null;
+  };
   description: string;
   slug: string;
   createdAt: string;

@@ -4,6 +4,10 @@ import imageFragment from "./image.fragment";
 
 export const articleFragment = gql`
   title
+  meta{
+     metaTitle
+     metaDescription
+  }
   slug
   description
   createdAt

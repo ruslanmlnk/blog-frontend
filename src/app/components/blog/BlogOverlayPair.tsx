@@ -30,9 +30,7 @@ export default function BlogOverlayPair({ items = [] as OverlayItem[] }) {
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <div className="absolute bottom-[35px] left-4 right-4 text-white">
               {it.dateLabel && (
-                <div className="text-[14px] font-bold opacity-70 mb-2 leading-[160%] uppercase">
-                  {it.dateLabel}
-                </div>
+                <div className="text-[14px] font-bold opacity-70 mb-2 leading-[160%] uppercase whitespace-pre-line" dangerouslySetInnerHTML={{ __html: it.dateLabel || "" }} />
               )}
               <h3 className="text-[22px] font-bold leading-[160%]">
                 <Link href={it.href}>{it.title}</Link>

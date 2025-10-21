@@ -7,6 +7,10 @@ export const contactQuery = gql`
       docs {
         id
         title
+        meta{
+          metaTitle
+          metaDescription
+        }
         description
         sideImage {
           ${imageFragment}

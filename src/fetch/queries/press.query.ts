@@ -3,7 +3,7 @@ import imageFragment from "../fragments/image.fragment";
 
 export const pressListQuery = gql`
   query getPressList($locale: LocaleInputType) {
-    Presses(locale: $locale) {
+    Presses(sort: "sortOrder", locale: $locale) {
       docs {
         id
         title
@@ -19,11 +19,14 @@ export const pressByIdQuery = gql`
       docs {
         id
         title
+	meta{
+          metaTitle
+          metaDescription
+        }
         icon { ${imageFragment} }
         content {
           ... on PressOverlayHero {
             __typename
-            date
             visibleFrom
             href
             title
@@ -33,7 +36,6 @@ export const pressByIdQuery = gql`
           ... on PressCardGrid {
             __typename
             items {
-              date
               visibleFrom
               href
               title
@@ -44,7 +46,6 @@ export const pressByIdQuery = gql`
           ... on PressOverlayPair {
             __typename
             items {
-              date
               visibleFrom
               href
               title

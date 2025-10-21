@@ -28,9 +28,7 @@ export default function BlogOverlayHero({ item }: { item?: HeroItem | null }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
         <div className="absolute bottom-6 left-6 right-6 text-white text-center flex flex-col gap-[25px] items-center">
           {item.dateLabel && (
-            <div className="text-[14px] font-bold opacity-70 leading-[160%] uppercase">
-              {item.dateLabel}
-            </div>
+            <div className="text-[14px] font-bold opacity-70 leading-[160%] uppercase" dangerouslySetInnerHTML={{ __html: item.dateLabel || ""}} />
           )}
           <h3 className="text-2xl md:text-[42px] font-bold leading-[29px]">
             <Link href={item.href}>{item.title}</Link>

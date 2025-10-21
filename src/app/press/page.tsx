@@ -2,22 +2,61 @@ import CategoriesChips from "@/app/components/blog/CategoriesChips";
 import PressBlocks from "@/app/components/blog/PressBlocks";
 import BlocksPagination from "@/app/components/blog/BlocksPagination";
 import { fetchPressList, fetchPressById } from "@/fetch/press.fetch";
+import { fetchPressHub } from "@/fetch/presshub.fetch"; // ⬅️ додано
 
 export const dynamic = "force-dynamic";
 
-export default async function Press({
-  searchParams,
-}: { searchParams: { source?: string | string[]; page?: string | string[] } }) {
-  const pressList = await fetchPressList();
+type SearchParams = { source?: string | string[]; page?: string | string[] };
+
+// --- SEO ---
+export async function generateMetadata({ searchParams }: { searchParams: SearchParams }) {
+  const pressList = (await fetchPressList()) ?? [];
+  const hub = await fetchPressHub();
+
   const rawSource = searchParams?.source ?? null;
-  let sourceKey: string | null = Array.isArray(rawSource) ? rawSource[0] : rawSource ?? null;
-  if (!sourceKey) {
-    sourceKey = pressList?.[0]?.id != null ? String(pressList[0].id) : null;
-  }
+  const sourceKey: string | null = Array.isArray(rawSource) ? rawSource[0] : rawSource ?? null;
+  const isHub = !sourceKey;
 
-  const pressDoc = sourceKey ? await fetchPressById(sourceKey) : null;
-  const allBlocks = ((pressDoc?.content as any[]) || []);
+  const pressDoc = !isHub && sourceKey ? await fetchPressById(Number(sourceKey)) : null;
 
+  const baseTitle = isHub
+    ? hub?.meta?.metaTitle || hub?.title || "Ми в ЗМІ"
+    : pressDoc?.meta?.metaTitle || pressDoc?.title || "Ми в ЗМІ";
+
+  const description = isHub
+    ? hub?.meta?.metaDescription || hub?.description || "Добірка публікацій у ЗМІ."
+    : pressDoc?.meta?.metaDescription || `Публікації та згадки у ЗМІ: ${pressDoc?.title ?? "Прес-матеріали"}.`;
+
+  const page = Array.isArray(searchParams?.page) ? searchParams.page[0] : searchParams?.page;
+  const pageSuffix = page && Number(page) > 1 ? ` — сторінка ${Number(page)}` : "";
+
+  return {
+    title: `${baseTitle}${pageSuffix}`,
+    description,
+    openGraph: {
+      title: `${baseTitle}${pageSuffix}`,
+      description,
+    },
+  };
+}
+
+
+export default async function Press({ searchParams }: { searchParams: SearchParams }) {
+  const pressList = await fetchPressList();
+  
+
+  const rawSource = searchParams?.source ?? null;
+  const sourceKey: string | null = Array.isArray(rawSource) ? rawSource[0] : rawSource ?? null;
+
+  // ⬇️ якщо немає source → працюємо з хабом
+  const isHub = !sourceKey;
+  const hub = await fetchPressHub();
+
+  const pressDoc = !isHub && sourceKey ? await fetchPressById(sourceKey) : null;
+
+  // ⬇️ єдина відмінність: allBlocks беремо з hub або з pressDoc
+  const allBlocks = (isHub ? (hub?.content as any[]) : (pressDoc?.content as any[])) || [];
+  // console.log(hub.content)
   const perPage = 5;
   const rawPage = searchParams?.page ?? 1;
   const pageNum = Math.max(1, Number(Array.isArray(rawPage) ? rawPage[0] : rawPage) || 1);
@@ -26,12 +65,17 @@ export default async function Press({
   const start = (currentPage - 1) * perPage;
   const pageBlocks = allBlocks.slice(start, start + perPage);
 
+  const chipItems = [
+    { id: "hub", title: hub?.title || "Усі ЗМІ" },
+    ...pressList.map((o: any) => ({ id: String(o.id), title: o.title })),
+  ];
+
   return (
     <main className="text-neutral-900">
       <CategoriesChips
-        selectedId={sourceKey ?? undefined}
-        items={pressList.map((o: any) => ({ id: o.id, title: o.title}))}
-        hrefFor={(id) => `/press?source=${encodeURIComponent(String(id))}`}
+        selectedId={sourceKey ?? "hub"}
+        items={chipItems}
+        hrefFor={(id) => (id === "hub" ? "/press" : `/press?source=${encodeURIComponent(String(id))}`)}
         backHref="/"
         backLabel="Вернуться на главную"
       />

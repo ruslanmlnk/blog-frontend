@@ -7,6 +7,27 @@ interface ArticlePageProps {
     slug: string;
   }>;
 }
+// --- SEO (meta) ---
+export async function generateMetadata({ params }: ArticlePageProps) {
+  const { slug } = await params;
+  const article = await fetchArticle(slug);
+
+  const articleData = article?.docs?.[0];
+
+  return {
+    title: articleData?.meta?.metaTitle || articleData?.title || "Стаття",
+    description:
+      articleData?.meta?.metaDescription ||
+      (articleData?.title ? `Читайте статтю: ${articleData.title}` : "Стаття на сайті"),
+    openGraph: {
+      title: articleData?.meta?.metaTitle || articleData?.title || "Стаття",
+      description:
+        articleData?.meta?.metaDescription ||
+        (articleData?.title ? `Читайте статтю: ${articleData.title}` : "Стаття на сайті"),
+    },
+  };
+}
+
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;

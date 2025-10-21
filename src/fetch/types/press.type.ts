@@ -37,6 +37,10 @@ export type PressBlock = PressOverlayHeroBlock | PressCardGridBlock | PressOverl
 export interface PressDoc {
   id: number | string;
   title: string;
+  meta?: {
+    metaTitle?: string | null;
+    metaDescription?: string | null;
+  };
   icon?: AltMedia | null;
   content?: PressBlock[];
 }

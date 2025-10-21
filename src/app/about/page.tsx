@@ -2,6 +2,17 @@ import AboutHero from "@/app/components/about/AboutHero";
 import AboutIntro from "@/app/components/about/AboutIntro";
 import fetchAbout from "@/fetch/about.fetch";
 
+
+export async function generateMetadata() {
+  const contact = await fetchAbout();
+
+  return {
+    title: contact?.meta?.metaTitle || "About",
+    description: contact?.meta?.metaDescription || "Get in touch with us",
+  };
+}
+
+
 export default async function AboutPage() {
   const about = await fetchAbout();
 

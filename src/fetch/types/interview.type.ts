@@ -34,6 +34,10 @@ export type InterviewBlock = InterviewOverlayHeroBlock | InterviewCardGridBlock 
 export interface InterviewDoc {
   id: number | string;
   title: string;
+  meta?: {
+    metaTitle?: string | null;
+    metaDescription?: string | null;
+  };
   content?: InterviewBlock[];
 }
 

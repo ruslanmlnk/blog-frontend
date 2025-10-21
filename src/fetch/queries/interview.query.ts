@@ -3,7 +3,7 @@ import imageFragment from "../fragments/image.fragment";
 
 export const interviewListQuery = gql`
   query getInterviewList($locale: LocaleInputType) {
-    Interviews(locale: $locale) {
+    Interviews(sort: "sortOrder", locale: $locale) {
       docs {
         id
         title
@@ -14,9 +14,13 @@ export const interviewListQuery = gql`
 
 export const interviewByIdQuery = gql`
   query getInterviewById($id: Int!, $locale: LocaleInputType) {
-    Interviews(locale: $locale, where: { id: { equals: $id } }) {
+    Interviews(locale: $locale, sort: "sortOrder", where: { id: { equals: $id } }) {
       docs {
         id
+	meta{
+          metaTitle
+          metaDescription
+        }
         title
         content {
           ... on InterviewOverlayHero {

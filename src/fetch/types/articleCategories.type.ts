@@ -23,6 +23,10 @@ export type CategoryBlock =
 
 export interface ArticleCategory {
   title: string;
+  meta?: {
+    metaTitle?: string | null;
+    metaDescription?: string | null;
+  };
   id: number;
   icon?: AltMedia | null;
   content?: CategoryBlock[];
