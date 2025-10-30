@@ -1,6 +1,6 @@
 {
   "brand": { "name": "Parubets Analytics" },
-  "common": { "all": "Всі" },
+  "common": { "all": "Всі", "press":"Вся преса", "interview":"Всі інтерв'ю"  },
   "nav": {
     "about": "Про центр",
     "blog": "Публікації",

@@ -2,6 +2,7 @@ import CategoriesChips from "@/app/components/blog/CategoriesChips";
 import PressBlocks from "@/app/components/blog/PressBlocks";
 import BlocksPagination from "@/app/components/blog/BlocksPagination";
 import { fetchPressList, fetchPressById } from "@/fetch/press.fetch";
+import { getServerLocale } from "@/fetch/locale";
 
 export const dynamic = "force-dynamic";
 
@@ -187,6 +188,13 @@ export default async function Press({ searchParams }: { searchParams: SearchPara
     { id: "hub", title: "Всі статті" },
     ...pressList.map((o: any) => ({ id: String(o.id), title: o.title })),
   ];
+const locale = await getServerLocale();
+
+const ALL_PRESS = 
+  locale === "uk" ? "Вся преса" : 
+  locale === "ru" ? "Вся пресса" : 
+  locale === "fr" ? "Toute la presse" : 
+  "All press";
 
   return (
     <main className="text-neutral-900">
@@ -200,7 +208,7 @@ export default async function Press({ searchParams }: { searchParams: SearchPara
 
       <div className="max-w-[1318px] mx-auto px-4 py-10 md:py-25">
         <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-8 uppercase">
-          {isHub ? "Всі статті" : (pressDoc?.title || "ПРЕСА ТА МЕДІА")}
+          {isHub ? ALL_PRESS : (pressDoc?.title || "ПРЕСА ТА МЕДІА")}
         </h1>
 
         {pageBlocks.length ? (

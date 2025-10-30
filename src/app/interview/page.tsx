@@ -1,9 +1,9 @@
-// app/interview/page.tsx
 import CategoriesChips from "@/app/components/blog/CategoriesChips";
 import InterviewBlocks from "@/app/components/blog/InterviewBlocks";
 import BlocksPagination from "@/app/components/blog/BlocksPagination";
 import { fetchInterviewList, fetchInterviewById } from "@/fetch/interview.fetch";
 import type { Metadata } from "next";
+import { getServerLocale } from "@/fetch/locale";
 
 export const dynamic = "force-dynamic";
 
@@ -41,7 +41,6 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
 /* PAGE */
 export default async function InterviewPage({ searchParams }: { searchParams: SearchParams }) {
   const list = await fetchInterviewList();
-
   const rawSource = searchParams?.source ?? null;
   const sourceKey: string | null = Array.isArray(rawSource) ? rawSource[0] : rawSource ?? null;
 
@@ -179,6 +178,14 @@ export default async function InterviewPage({ searchParams }: { searchParams: Se
     { id: "hub", title: "Всі інтерв'ю" },
     ...list.map((o: any) => ({ id: String(o.id), title: o.title })),
   ];
+  const locale = await getServerLocale();
+
+const ALL_INTERVIEWS = 
+  locale === "uk" ? "Всі інтерв'ю" : 
+  locale === "ru" ? "Все интервью" : 
+  locale === "fr" ? "Toutes les interviews" : 
+  "All interviews";
+
 
   return (
     <main className="text-neutral-900">
@@ -192,7 +199,7 @@ export default async function InterviewPage({ searchParams }: { searchParams: Se
 
       <div className="site-container py-10 md:py-12">
         <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-[74px] uppercase">
-          {isHub ? "Всі інтерв'ю" : (doc?.title || "Інтерв'ю")}
+          {isHub ? ALL_INTERVIEWS : (doc?.title || "Інтерв'ю")}
         </h1>
 
         {pageBlocks.length ? (

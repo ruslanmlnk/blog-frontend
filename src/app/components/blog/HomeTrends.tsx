@@ -40,12 +40,20 @@ export default function HomeTrends({
                   loading="lazy"
                 />
               </div>
-              <p className="text-[12px] font-semibold text-[#151515] leading-[160%]">
-                {it?.article?.title ?? ""}
-              </p>
+              <div className="flex flex-col justify-center">
+                <p className="text-[12px] font-semibold text-[#151515] leading-[160%]">
+                  {it?.article?.title ?? ""}
+                </p>
+                {it?.article?.description && (
+                  <p className="text-[11px] text-[#666] leading-[150%] mt-[4px]">
+                    {it.article.description}
+                  </p>
+                )}
+              </div>
             </Link>
           ))}
       </div>
     </div>
   );
 }
+

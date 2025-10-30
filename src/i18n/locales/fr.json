@@ -1,6 +1,6 @@
 {
   "brand": { "name": "Parubets Analytics" },
-  "common": { "all": "Tous" },
+  "common": { "all": "Tous", "press":"Toute la presse", "interview":"Tous les entretiens"  },
   "nav": {
     "about": "À propos",
     "blog": "Publications",
