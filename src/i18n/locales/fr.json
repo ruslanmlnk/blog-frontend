@@ -31,5 +31,7 @@
       "message": "Votre message",
       "send": "Envoyer"
     }
-  }
+  },
+  "categories": { "backHome": "Retour à l'accueil" },
+  "pagination": { "prev": "Précédent", "next": "Suivant" }
 }

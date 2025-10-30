@@ -3,6 +3,10 @@ import Image from "next/image";
 import { fetchCategories } from "@/fetch/articleCategories.fetch";
 import type { AltMedia } from "@/fetch/types/image.type";
 import { getServerLocale } from "@/fetch/locale";
+import en from "@/i18n/locales/en.json";
+import ru from "@/i18n/locales/ru.json";
+import uk from "@/i18n/locales/uk.json";
+import fr from "@/i18n/locales/fr.json";
 
 function BackToAllIcon() {
   return (
@@ -29,6 +33,9 @@ export default async function CategoriesChips({
 }) {
   const categories: any[] = items ?? (await fetchCategories());
   const locale = await getServerLocale();
+  const dict = locale === "ru" ? ru : locale === "uk" ? uk : locale === "fr" ? fr : en;
+  const BACK_TO_HOME = (dict as any)?.categories?.backHome || (dict as any)?.common?.backHome ||
+    (locale === "uk" ? "Повернутися на головну" : locale === "ru" ? "Вернуться на главную" : locale === "fr" ? "Retour à l'accueil" : "Back to home");
   const ALL = locale === "uk" ? "Всі" : locale === "ru" ? "Все" : locale === "fr" ? "Tous" : "All";
 
   return (
@@ -37,7 +44,7 @@ export default async function CategoriesChips({
         {/* Back to all */}
         <Link href={backHref} className="inline-flex items-center gap-3 text-white/90 hover:text-white transition-colors">
           <BackToAllIcon />
-          <span className="text-[16px] leading-[22px] tracking-[-0.4px]">{backLabel}</span>
+          <span className="text-[16px] leading-[22px] tracking-[-0.4px]">{BACK_TO_HOME}</span>
         </Link>
 
         {/* Chips group */}
