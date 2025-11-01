@@ -3,6 +3,7 @@ import PressBlocks from "@/app/components/blog/PressBlocks";
 import BlocksPagination from "@/app/components/blog/BlocksPagination";
 import { fetchPressList, fetchPressById } from "@/fetch/press.fetch";
 import { getServerLocale } from "@/fetch/locale";
+import { fetchSiteGlobals } from "@/fetch/siteglobals.fetch";
 
 export const dynamic = "force-dynamic";
 
@@ -15,10 +16,11 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
   const isHub = !sourceKey;
 
   if (isHub) {
-    const baseTitle = "Всі статті";
-    const description = "Усі матеріали з прес-джерел, відсортовані за датою.";
+    const globals = await fetchSiteGlobals();
+    const baseTitle = globals?.press?.meta?.metaTitle || "All press";
+    const description = globals?.press?.meta?.metaDescription || "";
     const page = Array.isArray(searchParams?.page) ? searchParams.page[0] : searchParams?.page;
-    const pageSuffix = page && Number(page) > 1 ? ` — сторінка ${Number(page)}` : "";
+    const pageSuffix = page && Number(page) > 1 ? ` — Page ${Number(page)}` : "";
     return {
       title: `${baseTitle}${pageSuffix}`,
       description,
@@ -30,12 +32,12 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
   }
 
   const pressDoc = sourceKey ? await fetchPressById(Number(sourceKey)) : null;
-  const baseTitle = pressDoc?.meta?.metaTitle || pressDoc?.title || "ПРЕСА ТА МЕДІА";
+  const baseTitle = pressDoc?.meta?.metaTitle || pressDoc?.title || "Press source";
   const description =
-    pressDoc?.meta?.metaDescription || `Матеріали зі джерела: ${pressDoc?.title ?? "невідоме джерело"}.`;
+    pressDoc?.meta?.metaDescription || `Press source: ${pressDoc?.title ?? "Unknown"}.`;
 
   const page = Array.isArray(searchParams?.page) ? searchParams.page[0] : searchParams?.page;
-  const pageSuffix = page && Number(page) > 1 ? ` — сторінка ${Number(page)}` : "";
+  const pageSuffix = page && Number(page) > 1 ? ` — Page ${Number(page)}` : "";
 
   return {
     title: `${baseTitle}${pageSuffix}`,
@@ -49,6 +51,7 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
 
 export default async function Press({ searchParams }: { searchParams: SearchParams }) {
   const pressList = await fetchPressList();
+  const globals = await fetchSiteGlobals();
 
   const rawSource = searchParams?.source ?? null;
   const sourceKey: string | null = Array.isArray(rawSource) ? rawSource[0] : rawSource ?? null;
@@ -185,16 +188,19 @@ export default async function Press({ searchParams }: { searchParams: SearchPara
   const pageBlocks = mergedBlocks.slice(start, start + perPage);
 
   const chipItems = [
-    { id: "hub", title: "Всі статті" },
+    { id: "hub", title: globals?.press?.allTitle || "All press" },
     ...pressList.map((o: any) => ({ id: String(o.id), title: o.title })),
   ];
-const locale = await getServerLocale();
+  const locale = await getServerLocale();
 
-const ALL_PRESS = 
-  locale === "uk" ? "Вся преса" : 
-  locale === "ru" ? "Вся пресса" : 
-  locale === "fr" ? "Toute la presse" : 
-  "All press";
+  const ALL_PRESS =
+    locale === "uk"
+      ? "Уся преса"
+      : locale === "ru"
+      ? "Вся пресса"
+      : locale === "fr"
+      ? "Toute la presse"
+      : "All press";
 
   return (
     <main className="text-neutral-900">
@@ -203,12 +209,13 @@ const ALL_PRESS =
         items={chipItems}
         hrefFor={(id) => (id === "hub" ? "/press" : `/press?source=${encodeURIComponent(String(id))}`)}
         backHref="/"
-        backLabel="Повернутися на головну"
+        backLabel={(globals?.categories?.backToHome && globals.categories.backToHome.trim()) || undefined}
+        hubTitle={(globals?.press?.allTitle && globals.press.allTitle.trim()) || ALL_PRESS}
       />
 
       <div className="max-w-[1318px] mx-auto px-4 py-10 md:py-25">
         <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-8 uppercase">
-          {isHub ? ALL_PRESS : (pressDoc?.title || "ПРЕСА ТА МЕДІА")}
+          {isHub ? (globals?.press?.allTitle || ALL_PRESS) : (pressDoc?.title || "Press")}
         </h1>
 
         {pageBlocks.length ? (

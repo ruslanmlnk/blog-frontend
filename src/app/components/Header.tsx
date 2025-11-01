@@ -9,8 +9,9 @@ import { useI18n } from "@/i18n/I18nProvider";
 import { AltMedia } from "@/fetch/types/image.type";
 
 export type ChipItem = { id: string | number; title: string; icon?: AltMedia | null };
+type MenuLabels = Partial<{ about: string; blog: string; press: string; interview: string; contacts: string }>
 
-export default function Header({ categories }: { categories?: ChipItem[] }) {
+export default function Header({ categories, menu }: { categories?: ChipItem[]; menu?: MenuLabels }) {
   const { t } = useI18n();
   // Static items per request: no admin fetching
   // const categories = [
@@ -36,11 +37,11 @@ export default function Header({ categories }: { categories?: ChipItem[] }) {
     { id: "4", title: t("top.cats.3") },
   ];
   const i18nNavItems = [
-    { label: t("nav.about"), href: "/about" },
-    { label: t("nav.blog"), href: "/blog" },
-    { label: t("nav.press"), href: "/press" },
-    { label: t("nav.interview"), href: "/interview" },
-    { label: t("nav.contacts"), href: "/contacts" },
+    { label: (menu?.about && String(menu.about).trim()) || t("nav.about"), href: "/about" },
+    { label: (menu?.blog && String(menu.blog).trim()) || t("nav.blog"), href: "/blog" },
+    { label: (menu?.press && String(menu.press).trim()) || t("nav.press"), href: "/press" },
+    { label: (menu?.interview && String(menu.interview).trim()) || t("nav.interview"), href: "/interview" },
+    { label: (menu?.contacts && String(menu.contacts).trim()) || t("nav.contacts"), href: "/contacts" },
   ];
 
   return (

@@ -4,6 +4,7 @@ import BlocksPagination from "@/app/components/blog/BlocksPagination";
 import { fetchInterviewList, fetchInterviewById } from "@/fetch/interview.fetch";
 import type { Metadata } from "next";
 import { getServerLocale } from "@/fetch/locale";
+import { fetchSiteGlobals } from "@/fetch/siteglobals.fetch";
 
 export const dynamic = "force-dynamic";
 
@@ -15,8 +16,9 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
   const sourceKey = Array.isArray(rawSource) ? rawSource[0] : rawSource ?? null;
 
   if (!sourceKey) {
-    const baseTitle = "Всі інтерв'ю";
-    const description = "Усі інтерв'ю, відсортовані за датою (новіші спочатку).";
+    const globals = await fetchSiteGlobals();
+    const baseTitle = globals?.interview?.meta?.metaTitle || "All interviews";
+    const description = globals?.interview?.meta?.metaDescription || "";
     return {
       title: baseTitle,
       description,
@@ -25,11 +27,11 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
   }
 
   const doc = await fetchInterviewById(Number(sourceKey));
-  const baseTitle = doc?.meta?.metaTitle || doc?.title || "Інтерв'ю";
-  const description = doc?.meta?.metaDescription || `Інтерв'ю: ${doc?.title ?? "невідоме джерело"}.`;
+  const baseTitle = doc?.meta?.metaTitle || doc?.title || "Interview";
+  const description = doc?.meta?.metaDescription || `Interview: ${doc?.title ?? "Unknown"}.`;
 
   const pageParam = Array.isArray(searchParams?.page) ? searchParams.page[0] : searchParams?.page;
-  const pageSuffix = pageParam && Number(pageParam) > 1 ? ` — сторінка ${Number(pageParam)}` : "";
+  const pageSuffix = pageParam && Number(pageParam) > 1 ? ` — Page ${Number(pageParam)}` : "";
 
   return {
     title: `${baseTitle}${pageSuffix}`,
@@ -41,6 +43,7 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
 /* PAGE */
 export default async function InterviewPage({ searchParams }: { searchParams: SearchParams }) {
   const list = await fetchInterviewList();
+  const globals = await fetchSiteGlobals();
   const rawSource = searchParams?.source ?? null;
   const sourceKey: string | null = Array.isArray(rawSource) ? rawSource[0] : rawSource ?? null;
 
@@ -175,17 +178,19 @@ export default async function InterviewPage({ searchParams }: { searchParams: Se
   const pageBlocks = mergedBlocks.slice(start, start + perPage);
 
   const chipItems = [
-    { id: "hub", title: "Всі інтерв'ю" },
+    { id: "hub", title: globals?.interview?.allTitle || "All interviews" },
     ...list.map((o: any) => ({ id: String(o.id), title: o.title })),
   ];
   const locale = await getServerLocale();
 
-const ALL_INTERVIEWS = 
-  locale === "uk" ? "Всі інтерв'ю" : 
-  locale === "ru" ? "Все интервью" : 
-  locale === "fr" ? "Toutes les interviews" : 
-  "All interviews";
-
+  const ALL_INTERVIEWS =
+    locale === "uk"
+      ? "Усі інтерв'ю"
+      : locale === "ru"
+      ? "Все интервью"
+      : locale === "fr"
+      ? "Toutes les interviews"
+      : "All interviews";
 
   return (
     <main className="text-neutral-900">
@@ -194,12 +199,13 @@ const ALL_INTERVIEWS =
         items={chipItems}
         hrefFor={(id) => (id === "hub" ? "/interview" : `/interview?source=${encodeURIComponent(String(id))}`)}
         backHref="/"
-        backLabel="Повернутися на головну"
+        backLabel={(globals?.categories?.backToHome && globals.categories.backToHome.trim()) || undefined}
+        hubTitle={(globals?.interview?.allTitle && globals.interview.allTitle.trim()) || ALL_INTERVIEWS}
       />
 
       <div className="site-container py-10 md:py-12">
         <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-[74px] uppercase">
-          {isHub ? ALL_INTERVIEWS : (doc?.title || "Інтерв'ю")}
+          {isHub ? (globals?.interview?.allTitle || ALL_INTERVIEWS) : (doc?.title || "Interview")}
         </h1>
 
         {pageBlocks.length ? (

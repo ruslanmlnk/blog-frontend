@@ -7,6 +7,7 @@ import en from "@/i18n/locales/en.json";
 import ru from "@/i18n/locales/ru.json";
 import uk from "@/i18n/locales/uk.json";
 import fr from "@/i18n/locales/fr.json";
+import { fetchSiteGlobals } from "@/fetch/siteglobals.fetch";
 
 function BackToAllIcon() {
   return (
@@ -23,20 +24,37 @@ export default async function CategoriesChips({
   items,
   hrefFor,
   backHref = "/",
-  backLabel = "Вернуться на главную",
+  backLabel = "Back to home",
+  hubTitle,
 }: {
   selectedId?: string | null;
   items?: ChipItem[];
   hrefFor?: (id: string | number) => string;
   backHref?: string;
   backLabel?: string;
+  hubTitle?: string;
 }) {
   const categories: any[] = items ?? (await fetchCategories());
   const locale = await getServerLocale();
   const dict = locale === "ru" ? ru : locale === "uk" ? uk : locale === "fr" ? fr : en;
-  const BACK_TO_HOME = (dict as any)?.categories?.backHome || (dict as any)?.common?.backHome ||
-    (locale === "uk" ? "Повернутися на головну" : locale === "ru" ? "Вернуться на главную" : locale === "fr" ? "Retour à l'accueil" : "Back to home");
-  const ALL = locale === "uk" ? "Всі" : locale === "ru" ? "Все" : locale === "fr" ? "Tous" : "All";
+  const globals = await fetchSiteGlobals();
+
+  const BACK_TO_HOME_FINAL =
+    globals?.categories?.backToHome ||
+    (dict as any)?.categories?.backHome ||
+    (dict as any)?.common?.backHome ||
+    backLabel ||
+    "Back to home";
+
+  const ALL_FINAL =
+    hubTitle ??
+    (locale === "uk"
+      ? "Всі"
+      : locale === "ru"
+      ? "Все"
+      : locale === "fr"
+      ? "Tous"
+      : "All");
 
   return (
     <div className="bg-[#0B4CC0] border border-[#E0E0E0]">
@@ -44,14 +62,14 @@ export default async function CategoriesChips({
         {/* Back to all */}
         <Link href={backHref} className="inline-flex items-center gap-3 text-white/90 hover:text-white transition-colors">
           <BackToAllIcon />
-          <span className="text-[16px] leading-[22px] tracking-[-0.4px]">{BACK_TO_HOME}</span>
+          <span className="text-[16px] leading-[22px] tracking-[-0.4px]">{BACK_TO_HOME_FINAL}</span>
         </Link>
 
         {/* Chips group */}
         <div className="flex items-center gap-4 not-md:flex-col justify-center">
           {categories.map((c: any) => {
             const id = (c.id ?? c._id) as string | number;
-            const title = String(id) === "hub" ? ALL : ((c.title ?? c.name) as string);
+            const title = String(id) === "hub" ? ALL_FINAL : ((c.title ?? c.name) as string);
             const icon = c.icon as AltMedia | null | undefined;
             const active = selectedId === String(id);
             const base = "inline-flex items-center px-5 py-3 md:px-6 md:py-[20px] rounded-[10px] text-[12px] md:text-[14px] leading-[160%] font-bold";
@@ -80,3 +98,4 @@ export default async function CategoriesChips({
     </div>
   );
 }
+

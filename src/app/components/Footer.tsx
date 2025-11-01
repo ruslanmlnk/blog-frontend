@@ -7,7 +7,9 @@ import { useI18n } from "@/i18n/I18nProvider";
 import { ChipItem } from "./Header";
 
 
-export default function Footer({ categories }: { categories?: ChipItem[] }) {
+type MenuLabels = Partial<{ about: string; blog: string; press: string; interview: string; contacts: string }>
+
+export default function Footer({ categories, menu }: { categories?: ChipItem[]; menu?: MenuLabels }) {
   const { t } = useI18n();
 
   const handleSubmitWeekly = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -75,11 +77,11 @@ export default function Footer({ categories }: { categories?: ChipItem[] }) {
 
   // Localized footer nav items
   const i18nNavItems = [
-    { label: t('nav.about'), href: '/about' },
-    { label: t('nav.blog'), href: '/blog' },
-    { label: t('nav.press'), href: '/press' },
-    { label: t('nav.interview'), href: '/interview' },
-    { label: t('nav.contacts'), href: '/contacts' },
+    { label: (menu?.about && String(menu.about).trim()) || t('nav.about'), href: '/about' },
+    { label: (menu?.blog && String(menu.blog).trim()) || t('nav.blog'), href: '/blog' },
+    { label: (menu?.press && String(menu.press).trim()) || t('nav.press'), href: '/press' },
+    { label: (menu?.interview && String(menu.interview).trim()) || t('nav.interview'), href: '/interview' },
+    { label: (menu?.contacts && String(menu.contacts).trim()) || t('nav.contacts'), href: '/contacts' },
   ];
 
   return (

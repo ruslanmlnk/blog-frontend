@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { fetchCategories } from "@/fetch/articleCategories.fetch";
+import { fetchSiteGlobals } from "@/fetch/siteglobals.fetch";
 import { I18nProvider, type Locale } from "@/i18n/I18nProvider";
 import { cookies } from "next/headers";
 
@@ -25,16 +26,17 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
     const categories: any[] = await fetchCategories();
+    const globals = await fetchSiteGlobals();
     const cookieStore = await cookies();
     const initialLocale = (cookieStore.get('lang')?.value as Locale) || 'en';
   return (
     <html lang={initialLocale} className={montserrat.variable}>
       <body className={montserrat.className}>
         <I18nProvider initialLocale={initialLocale}>
-          <Header categories={categories}/>
+          <Header categories={categories} menu={globals?.menu}/>
           {children}
           {/* <div className="min-h-svh">{children}</div> */}
-          <Footer categories={categories}/>
+          <Footer categories={categories} menu={globals?.menu}/>
         </I18nProvider>
       </body>
     </html>
